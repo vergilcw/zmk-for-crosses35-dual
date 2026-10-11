@@ -1,0 +1,7 @@
+.cache/
+__pycache__/
+.venv/
+# Local docker/west build workspace
+.west-workspace/
+build/
+*.uf2

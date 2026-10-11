@@ -1,0 +1,24 @@
+name: Draw ZMK keymaps
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "config/*.keymap"
+      - "config/info.json"
+      - "keymap_drawer.config.yaml"
+      - ".github/workflows/draw-keymaps.yml"
+
+jobs:
+  draw:
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
+    permissions:
+      contents: write
+    with:
+      keymap_patterns: "config/crosses.keymap"
+      config_path: "keymap_drawer.config.yaml"
+      output_folder: "keymap-drawer"
+      # Physical layout lives in config/info.json (QMK-style), not config/crosses.json.
+      draw_args: "crosses:'-j config/info.json'"
+      commit_message: "keymap-drawer render [skip ci]"
+      fail_on_error: true

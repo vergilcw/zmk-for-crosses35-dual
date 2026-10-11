@@ -1,1 +1,153 @@
-
+layout: {zmk_keyboard: crosses, layout_name: gggw_crosses_36_layout}
+layers:
+  Base:
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - A
+  - S
+  - D
+  - F
+  - G
+  - H
+  - J
+  - K
+  - L
+  - ''''
+  - {t: Z, h: '$$mdi:apple-keyboard-option$$'}
+  - {t: X, h: '$$mdi:apple-keyboard-shift$$'}
+  - C
+  - V
+  - B
+  - N
+  - {t: M, h: Lower}
+  - ','
+  - {t: ., h: '$$mdi:apple-keyboard-shift$$'}
+  - {t: /, h: '$$mdi:apple-keyboard-option$$'}
+  - {t: '$$mdi:keyboard-tab$$', h: Mouse}
+  - {t: '$$mdi:backspace$$', h: '$$mdi:apple-keyboard-shift$$'}
+  - {t: '$$mdi:keyboard-esc$$', h: Lower}
+  - {t: '$$mdi:keyboard-return$$', h: '$$mdi:apple-keyboard-control$$'}
+  - {t: '$$mdi:keyboard-space$$', h: Raise}
+  - $$mdi:apple-keyboard-command$$
+  Lower:
+  - '!'
+  - Home
+  - $$mdi:arrow-up-bold$$
+  - End
+  - '%'
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - F1
+  - F2
+  - F3
+  - F4
+  - '1'
+  - $$mdi:arrow-left-bold$$
+  - $$mdi:arrow-down-bold$$
+  - $$mdi:arrow-right-bold$$
+  - '5'
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - F4
+  - F5
+  - F7
+  - F11
+  - $$mdi:brightness-5$$
+  - $$mdi:volume-minus$$
+  - $$mdi:volume-mute$$
+  - $$mdi:volume-plus$$
+  - $$mdi:brightness-7$$
+  - {t: '$$mdi:swap-horizontal$$', h: USB/BT}
+  - {t: F1, type: held}
+  - F2
+  - F3
+  - F12
+  - {t: '$$mdi:transfer$$', type: trans}
+  - {t: '$$mdi:transfer$$', type: trans}
+  - {type: held alternate}
+  - {t: '$$mdi:mouse-left-click$$', h: left}
+  - {t: '$$mdi:mouse-right-click$$', h: right}
+  - {t: '$$mdi:mouse$$', h: middle}
+  Raise:
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
+  - +
+  - '7'
+  - '8'
+  - '9'
+  - PrtSc
+  - '`'
+  - '~'
+  - '|'
+  - '&'
+  - ^
+  - '*'
+  - '4'
+  - '5'
+  - '6'
+  - '-'
+  - \
+  - $$mdi:skip-previous$$
+  - ⇧+$$mdi:play-pause$$
+  - ⇧+$$mdi:skip-next$$
+  - {t: '$$mdi:bluetooth-off$$', h: clear}
+  - '0'
+  - '1'
+  - '2'
+  - '3'
+  - .
+  - ⇧+$$mdi:keyboard-tab$$
+  - $$mdi:backspace$$
+  - Del
+  - {t: '$$mdi:transfer$$', type: trans}
+  - {type: held}
+  - {t: '$$mdi:transfer$$', type: trans}
+  Mouse:
+  - {h: '4', s: '$$mdi:bluetooth-connect$$'}
+  - Home
+  - $$mdi:arrow-up-bold$$
+  - End
+  - {h: '3', s: '$$mdi:bluetooth-connect$$'}
+  - $$mdi:transfer-up$$
+  - '['
+  - ']'
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - '='
+  - {h: '5', s: '$$mdi:bluetooth-connect$$'}
+  - $$mdi:arrow-left-bold$$
+  - $$mdi:arrow-down-bold$$
+  - $$mdi:arrow-right-bold$$
+  - {h: '2', s: '$$mdi:bluetooth-connect$$'}
+  - $$mdi:transfer-down$$
+  - (
+  - )
+  - ;
+  - ':'
+  - $$mdi:apple-keyboard-option$$
+  - {t: '$$mdi:mouse$$', h: middle}
+  - {t: '$$mdi:mouse-right-click$$', h: right}
+  - {t: '$$mdi:mouse-left-click$$', h: left}
+  - {h: '1', s: '$$mdi:bluetooth-connect$$'}
+  - {t: '$$mdi:lock-open-variant$$', h: studio}
+  - '{'
+  - '}'
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - _
+  - {t: '$$mdi:minus-circle-outline$$', type: held}
+  - $$mdi:apple-keyboard-shift$$
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - $$mdi:keyboard-return$$
+  - $$mdi:keyboard-space$$
+  - {t: '$$mdi:transfer$$', type: trans}
+combos:
+- p: [0, 1]
+  k: $$mdi:keyboard-esc$$
