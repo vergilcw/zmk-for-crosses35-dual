@@ -23,9 +23,9 @@ New work discovered mid-task lands here; triage into a phase before ending a ses
 
 ## Phase 1 — Baseline build & flash
 
-- [ ] Push to `vergilcw/zmk-for-crosses35-dual` (needs user OK) and confirm the CI build is green
-      (fork has never run Actions; they're enabled).
-- [ ] Confirm the draw workflow commits a fresh SVG.
+- [x] Push to `vergilcw/zmk-for-crosses35-dual` and confirm the CI build is green
+      (2026-10-10, run 38101175564: left, right+Studio, settings_reset all built).
+- [x] Confirm the draw workflow runs (run 38101175590 green; no commit needed — CI render matched the local one).
 - [ ] Flash right (central, Studio) then left; follow `flashing.md`.
 - [ ] In ZMK Studio run **Restore Stock Settings** so the firmware keymap (not stale Studio state) is live;
       re-verify with `scripts/studio_dump.py` that device == `config/crosses.keymap`.
