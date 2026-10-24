@@ -25,7 +25,7 @@ Personal [ZMK](https://zmk.dev) firmware for a **wireless Crosses 35 split keybo
 | Layer | Reach | What's there |
 | --- | --- | --- |
 | **Base** | — | QWERTY, `'` on the right pinky, mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Esc/Lower — Ret/Ctrl · Space/Raise · Gui |
-| **Lower** | hold left-inner thumb, `C` or `,` | Navigation (Home/arrows/End), media + brightness, F-keys, mouse buttons on right thumbs, USB/BT toggle. **Both trackballs scroll vertically (unrotated).** |
+| **Lower** | hold left-inner thumb, `C` or `,` | Navigation (Home/arrows/End), media + brightness, F-keys, USB/BT toggle. **Both trackballs scroll vertically (unrotated).** |
 | **Raise** | hold right-middle thumb | Symbols on the left, numpad on the right, media prev/next. **Right trackball snipes; left ball scrolls horizontally.** |
 | **LMouse** | hold `V` | Left-handed mouse: left trackball = pointer, left thumbs = M3/M2/M1 (other keys off) |
 | **RMouse** | hold `M` | Right trackball = pointer, right thumbs = left/right/middle click (other keys off) |
