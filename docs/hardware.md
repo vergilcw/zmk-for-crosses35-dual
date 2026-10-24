@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | Split role | **Central** (talks to host, USB + BLE) | Peripheral (talks only to right half) |
 | ZMK Studio | Yes (`studio-rpc-usb-uart` snippet, `CONFIG_ZMK_STUDIO=y`) | No |
-| Trackball | PMW3610, CPI 800, `force-high-performance` → rotated 45° CCW; **pointer** (Base/Mouse), **scroll** (Lower), **snipe** (Raise) | PMW3610, CPI 600 → **scroll**, vertical only (horizontal-only while Lower/Raise held), rotated 45° CW; (`zip_xy_to_scroll_mapper` + `zip_scroll_scaler 1 2`) |
+| Trackball | PMW3610, CPI 800, `force-high-performance` → rotated 45° CCW; **pointer** (Base/Mouse), see "Trackball behaviour by layer" | PMW3610, CPI 600 → **scroll**, vertical only (horizontal-only while Lower/Raise held), rotated 45° CW; (`zip_xy_to_scroll_mapper` + `zip_scroll_scaler 1 2`) |
 | USB name | `Crosses BT` (`/dev/serial/by-id/usb-ZMK_Project_Crosses_BT_*`) | — |
 | Artifact | `crosses_35_right` | `crosses_35_left` |
 
@@ -45,27 +45,37 @@ Snapshot of the inherited shield settings (2026-10-10, `cb-zmk-keebs` HEAD `d9e6
 - `crosses_right.overlay` uses `xy-swap` with `x-invert`/`y-invert` commented out; that's where
   orientation is currently set.
 
-## Right-trackball event chain (keymap file)
+## Trackball behaviour by layer (config/crosses.keymap)
+
+| Layer | Right ball (central) | Left ball (via split) |
+| --- | --- | --- |
+| Base | pointer, rotated 45° CCW | vertical-only scroll, unrotated |
+| Lower (hold `Esc`, `C` or `,`) | vertical-only scroll, unrotated | vertical-only scroll, unrotated |
+| Raise | snipe (¼ speed), rotated 45° CCW | horizontal-only scroll, rotated 45° CW |
+| Mouse (hold `Tab`) / RMouse (hold `M`) | pointer, rotated 45° CCW | vertical-only scroll, unrotated |
+| LMouse (hold `V`) | pointer, rotated 45° CCW | pointer, rotated 45° CW |
+
+LMouse (left-handed mouse): left thumbs are M3/M2/M1 = Tab-pos / Shift-pos / Esc-pos; RMouse: right thumbs are
+LCLK/RCLK/MCLK. Everything else on both layers is `&none`. The goal is one scheme that can be copied to the
+single-trackball unibody boards.
+
+Rotation is a separate input-processor *device* (efogdev rotate-plane), so each ball is two stages:
 
 ```
-trackball_central (driver) → trackball_central_listener [shield; input-processors = zip_rotate_pointer]
-  → zip_rotate_pointer (efogdev/zmk-input-processor-rotate-plane, angle 45)
-  → rotated_pointer_listener [config/crosses.keymap]
-       base:  zip_ble_report_rate_limit
-       LOWER: zip_xy_to_scroll_mapper → zip_scroll_scaler 1 2 → rate limit
-       RAISE: zip_xy_scaler 1 4 → rate limit
+right: trackball_central → trackball_central_listener [shield node; processors = zip_rotate_pointer]
+          child LOWER: x_scaler 0 → xy_to_scroll_mapper → scroll_scaler 1 2 → rate limit      (final)
+       → zip_rotate_pointer (angle 45) → rotated_pointer_listener
+          base: rate limit      child RAISE: xy_scaler 1 4 → rate limit
+
+left:  left half: trackball_peripheral → trackball_peripheral_split [processors = rate limit only, raw X/Y]
+       central:   trackball_peripheral_listener [processors = x_scaler 0 → mapper → scroll_scaler 1 2]
+          children LMOUSE, RAISE: processors = zip_rotate_left (angle -45)
+       → zip_rotate_left → left_ball_listener
+          base: (none = pointer)   child RAISE: y_scaler 0 → mapper → scroll_scaler 1 2
 ```
 
-Left ball (2026-10-24): the left half now sends raw X/Y (only the rate limiter runs there); the central does the rest:
-
-```
-trackball_peripheral_split → trackball_peripheral_listener [input-processors = zip_rotate_left, angle -45]
-  → left_ball_listener [config/crosses.keymap]
-       base:           zip_x_scaler 0 1 (vertical only) → xy_to_scroll_mapper → zip_scroll_scaler 1 2
-       LOWER or RAISE: zip_y_scaler 0 1 (horizontal only) → xy_to_scroll_mapper → zip_scroll_scaler 1 2
-```
-
-Details and sign conventions: knowledge base, "Right trackball port".
+A matching `layers` child *replaces* the listener's base chain, which is how Lower skips rotation. Layer state
+only exists on the central, so the left half does no layer-dependent work. Sign conventions: knowledge base.
 
 ## Physical layout
 

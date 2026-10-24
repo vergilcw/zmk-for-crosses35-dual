@@ -10,8 +10,8 @@ Personal [ZMK](https://zmk.dev) firmware for a **wireless Crosses 35 split keybo
 > original [GGGW Crosses](https://github.com/Good-Great-Grand-Wonderful/crosses); don't flash this on other boards.
 
 - **Right half** — central: connects to the computer over USB/Bluetooth, runs ZMK Studio, trackball = pointer
-  (scroll on Lower, slow "snipe" on Raise, rotated 45° counterclockwise).
-- **Left half** — peripheral: trackball = scroll wheel.
+  (rotated 45° counterclockwise; slow "snipe" on Raise).
+- **Left half** — peripheral: trackball = vertical scroll wheel (horizontal on Raise, a full pointer while holding `V`).
 
 ---
 
@@ -25,8 +25,10 @@ Personal [ZMK](https://zmk.dev) firmware for a **wireless Crosses 35 split keybo
 | Layer | Reach | What's there |
 | --- | --- | --- |
 | **Base** | — | QWERTY, `'` on the right pinky, mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Esc/Lower — Ret/Ctrl · Space/Raise · Gui |
-| **Lower** | hold left-inner thumb or M | Navigation (Home/arrows/End), media + brightness, F-keys, mouse buttons on right thumbs, USB/BT toggle. **Right trackball scrolls.** |
-| **Raise** | hold right-middle thumb | Symbols on the left, numpad on the right, media prev/next. **Right trackball in slow snipe mode.** |
+| **Lower** | hold left-inner thumb, `C` or `,` | Navigation (Home/arrows/End), media + brightness, F-keys, mouse buttons on right thumbs, USB/BT toggle. **Both trackballs scroll vertically (unrotated).** |
+| **Raise** | hold right-middle thumb | Symbols on the left, numpad on the right, media prev/next. **Right trackball snipes; left ball scrolls horizontally.** |
+| **LMouse** | hold `V` | Left-handed mouse: left trackball = pointer, left thumbs = M3/M2/M1 (other keys off) |
+| **RMouse** | hold `M` | Right trackball = pointer, right thumbs = left/right/middle click (other keys off) |
 | **Mouse** | hold left-outer thumb | Bluetooth profiles 0–4, mouse buttons, brackets/parens, Studio unlock |
 
 The keymap mirrors my [Crosses 36](https://github.com/vergilcw/zmk-for-crosses36) (single-trackball) board's inner

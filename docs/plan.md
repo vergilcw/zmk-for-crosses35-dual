@@ -25,7 +25,12 @@ and right-trackball behaviour minus the outer pinky columns and the second ball.
 - [x] Q+W combo and unused `&as` behavior removed.
 - [x] Right ball: rotate 45° CCW, Lower = scroll, Raise = snipe, Base/Mouse = pointer (keymap file).
 - [x] Local docker build of both halves compiles; devicetree checked (knowledge base).
-- [ ] Push (**ask first**), confirm CI, flash right half (**ask first**), tune.
+- [x] Right half flashed 2026-10-24 with the first port build (run 40129987723); user: "looks right".
+- [x] Layer scheme revision (LMouse on `V`, RMouse on `M`, Lower = unrotated vertical scroll on both balls,
+      layer-taps on `C`/`,`, left ball horizontal scroll on Raise): compiled locally, committed.
+- [ ] Push (**ask first**), confirm CI, flash **both** halves (**ask first**), tune (scroll directions, angles).
+- [ ] Later: tune hold-taps (`&lt` on C/V/M/comma, `&mt`s), per user "revisit later".
+- [ ] Port the same scheme to the unibody boards / update the Crosses 36 repo (`'` placement, Lower unrotated scroll).
 
 ## Phase 0 — Foundations
 
@@ -68,7 +73,7 @@ and right-trackball behaviour minus the outer pinky columns and the second ball.
 - [ ] Axis-locked scrolling (vertical-only / horizontal-only) for the left (scroll) trackball: layer-scoped
       scaler that zeroes `INPUT_REL_HWHEEL` or `INPUT_REL_WHEEL` on the central listener.
 - [x] Trackball angle on the right ball: `efogdev/zmk-input-processor-rotate-plane` at 45° (= "−45° CCW" of the
-      Crosses 36 repo). Built, not yet flashed. [ ] Left ball: rotated −45 (module) and axis-locked scroll added 2026-10-24, awaiting flash/test of both halves.
+      Crosses 36 repo). Built, not yet flashed. [ ] Left ball rotation/scroll done in the 2026-10-24 layer scheme (see below), awaiting flash/test of both halves.
 - [ ] Trackball → volume / brightness on a layer: needs a motion→keypress input processor (research
       candidates); decide which ball and layer.
 - [ ] Decide where overrides live: `config/crosses_{left,right}.overlay` (verify ZMK picks these up for split

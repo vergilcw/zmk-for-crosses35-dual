@@ -19,43 +19,68 @@
 #define BASE  0
 #define LOWER 1
 #define RAISE 2
-#define MOUSE 3
+#define MOUSE  3
+#define LMOUSE 4
+#define RMOUSE 5
 
+/*
+ * Trackball behaviour by layer ("rot" = rotated, 0 deg = unrotated):
+ *
+ *   layer          right ball (central)          left ball (via split)
+ *   Base           pointer, rot 45 CCW           vertical-only scroll, 0 deg
+ *   Lower          vertical-only scroll, 0 deg   vertical-only scroll, 0 deg
+ *   Raise          snipe (1/4), rot 45 CCW       horizontal-only scroll, rot 45 CW
+ *   Mouse/RMouse   pointer, rot 45 CCW           vertical-only scroll, 0 deg
+ *   LMouse         pointer, rot 45 CCW           pointer, rot 45 CW
+ *
+ * The rotate-plane processors are separate devices, so each ball is a two-stage chain: a stage-1
+ * listener (layer children choose whether to rotate or to short-circuit) and a stage-2 listener that
+ * reads the rotated events and applies the layer behaviour. Module angle +45 = counterclockwise (what
+ * the Crosses 36 repo calls -45); the left ball is the mirror image, -45.
+ */
+
+/* Right ball. Base: rotate -> stage 2. Lower: unrotated vertical scroll, no stage 2. */
 &zip_rotate_pointer {
-    angle = <45>; /* +45 here == "-45 / counterclockwise" in the Crosses 36 repo */
+    angle = <45>;
 };
 
 &trackball_central_listener {
     input-processors = <&zip_rotate_pointer>;
+
+    lower_vscroll {
+        layers = <LOWER>;
+        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>, <&zip_ble_report_rate_limit>;
+    };
 };
 
-/* Left (peripheral) trackball: raw X/Y are sent to the central, which rotates and then scrolls. */
+/* Left ball: the left half only rate-limits and sends raw X/Y; everything else happens on the central. */
 &trackball_peripheral_split {
     input-processors = <&zip_ble_report_rate_limit>;
 };
 
+/* Base/Lower/Mouse/RMouse: unrotated vertical-only scroll. LMouse and Raise: rotate -> stage 2. */
 &trackball_peripheral_listener {
-    input-processors = <&zip_rotate_left>;
+    input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
+
+    lmouse_rotate {
+        layers = <LMOUSE>;
+        input-processors = <&zip_rotate_left>;
+    };
+
+    raise_rotate {
+        layers = <RAISE>;
+        input-processors = <&zip_rotate_left>;
+    };
 };
 
 / {
     chosen { zmk,physical-layout = &gggw_crosses_36_layout; };
 
-    /*
-     * Right (central) trackball: rotated 45 deg counterclockwise, then per layer
-     *   Base/Mouse: pointer    Lower: scroll    Raise: snipe (1/4 speed)
-     * Stage 1 (trackball_central_listener, defined in the shield) only rotates; stage 2 reads the
-     * rotated events from the processor device and applies the layer behaviour.
-     */
+    /* Right ball stage 2: pointer by default, snipe on Raise. */
     rotated_pointer_listener {
         compatible = "zmk,input-listener";
         device = <&zip_rotate_pointer>;
         input-processors = <&zip_ble_report_rate_limit>;
-
-        lower_scroll {
-            layers = <LOWER>;
-            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>, <&zip_ble_report_rate_limit>;
-        };
 
         raise_snipe {
             layers = <RAISE>;
@@ -63,7 +88,6 @@
         };
     };
 
-    /* Mirror of the right ball: +45 deg in the Crosses 36 sign convention (clockwise) = -45 for this module. */
     zip_rotate_left: zip_rotate_left {
         compatible = "zmk,input-processor-rotate-plane";
         device-name = "left";
@@ -73,17 +97,13 @@
         angle = <(-45)>;
     };
 
-    /*
-     * Left trackball: vertical scroll only (X zeroed); while Lower or Raise is held, horizontal
-     * scroll only (Y zeroed). Layer state lives on the central, hence the processing here.
-     */
+    /* Left ball stage 2 (only LMouse and Raise get here): pointer by default, horizontal-only scroll on Raise. */
     left_ball_listener {
         compatible = "zmk,input-listener";
         device = <&zip_rotate_left>;
-        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
 
-        horizontal_scroll {
-            layers = <LOWER RAISE>;
+        raise_hscroll {
+            layers = <RAISE>;
             input-processors = <&zip_y_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
         };
     };
@@ -94,9 +114,9 @@
         default_layer {
             display-name = "Base";
             bindings = <
-&kp Q           &kp W            &kp E  &kp R  &kp T  &kp Y  &kp U        &kp I      &kp O          &kp P
-&kp A           &kp S            &kp D  &kp F  &kp G  &kp H  &kp J        &kp K      &kp L          &kp SQT
-&mt LALT Z      &mt LSHFT X      &kp C  &kp V  &kp B  &kp N  &lt LOWER M  &kp COMMA  &mt LSHFT DOT  &mt RALT FSLH
+&kp Q       &kp W        &kp E        &kp R         &kp T  &kp Y  &kp U         &kp I            &kp O          &kp P
+&kp A       &kp S        &kp D        &kp F         &kp G  &kp H  &kp J         &kp K            &kp L          &kp SQT
+&mt LALT Z  &mt LSHFT X  &lt LOWER C  &lt LMOUSE V  &kp B  &kp N  &lt RMOUSE M  &lt LOWER COMMA  &mt LSHFT DOT  &mt RALT FSLH
                 &lt MOUSE TAB  &mt LSHFT BSPC  &lt LOWER ESC  &mt LCTRL RET  &lt RAISE SPACE  &kp LGUI
             >;
         };
@@ -107,7 +127,7 @@
 &kp LS(N1)    &kp HOME      &kp UP      &kp END       &kp LS(N5)    &none         &kp F1     &kp F2     &kp F3  &kp F4
 &kp N1        &kp LEFT      &kp DOWN    &kp RIGHT     &kp N5        &none         &kp F4     &kp F5     &kp F7  &kp F11
 &kp C_BRI_DN  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp C_BRI_UP  &out OUT_TOG  &kp F1     &kp F2     &kp F3  &kp F12
-                            &trans      &trans        &trans        &mkp LCLK     &mkp RCLK  &mkp MCLK
+                            &trans      &trans        &trans        &trans        &trans     &trans
             >;
         };
 
@@ -128,6 +148,26 @@
 &bt BT_SEL 4  &kp LEFT   &kp DOWN   &kp RIGHT  &bt BT_SEL 1  &kp PG_DN       &kp LS(N9)    &kp LS(N0)    &kp SEMI  &kp LS(SEMI)
 &kp LALT      &mkp MCLK  &mkp RCLK  &mkp LCLK  &bt BT_SEL 0  &studio_unlock  &kp LS(LBKT)  &kp LS(RBKT)  &none     &kp LS(MINUS)
                          &none      &kp LSHFT  &none         &kp RET         &kp SPACE     &trans
+            >;
+        };
+
+        lmouse_layer {
+            display-name = "LMouse";
+            bindings = <
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+                &mkp MCLK  &mkp RCLK  &mkp LCLK  &none  &none  &none
+            >;
+        };
+
+        rmouse_layer {
+            display-name = "RMouse";
+            bindings = <
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+                &none  &none  &none  &mkp LCLK  &mkp RCLK  &mkp MCLK
             >;
         };
     };

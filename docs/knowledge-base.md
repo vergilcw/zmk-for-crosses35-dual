@@ -33,17 +33,24 @@ Newest entries go at the top of each section.
 - Local docker build: `zmkfirmware/zmk-build-arm:4.1` (matches the ZMK workflow); `:stable` is the wrong Zephyr.
   Workspace ≈ 5 GB; `/` had 8 GB free afterwards.
 
-## Left trackball: rotation and axis-locked scroll (2026-10-24)
+## Layer scheme revision: LMouse/RMouse, unrotated Lower scroll (2026-10-24)
 
-- Before this, the left ball was **not rotated** (peripheral ran `xy_to_scroll_mapper` + `zip_scroll_scaler 1 2`; no angle
-  anywhere). Now: peripheral sends raw X/Y; central rotates by `angle = <(-45)>` (custom `zip_rotate_left`, device-name
-  `left`) — the mirror of the right ball's +45 (user's "+45" convention = clockwise = module −45) — then
-  `left_ball_listener` locks the axis by layer (see hardware.md). Layer state exists only on the central, which is why
-  the work moved off the peripheral. **Both halves must be flashed** for this change.
-- Axis lock: `zip_x_scaler 0 1` zeroes X before the mapper (vertical only); `zip_y_scaler 0 1` for horizontal; the
-  child node's `layers = <LOWER RAISE>` replaces the base chain. Compiled OK (local build, both halves).
-- *Unverified on hardware:* rotation sign for the left ball, horizontal scroll direction, and that BLE carries the raw
-  X/Y fast enough (the peripheral still rate-limits via `zip_ble_report_rate_limit`).
+- User design: one scheme for split and unibody boards. Full table in `docs/hardware.md`. Decisions: Lower = vertical-only,
+  **0° rotation, same on both balls** (usable from either hand); Lower is reachable from `Esc`, and via layer-taps on
+  `C` and `,` (so either hand can scroll); `V` = LMouse (left-handed full mouse: left ball pointer at 45° CW, M1/M2/M3
+  on left thumbs); `M` = RMouse (right pointer + right-thumb clicks, replaces `&lt LOWER M`); all other keys on those two
+  layers are `&none`; the old Lower clicks became `&trans`. Left ball: Base unrotated vertical scroll, Raise
+  horizontal-only scroll at 45° CW.
+- Before 2026-10-24 the left ball had no rotation at all (peripheral ran mapper + scaler 1 2). Now the left half sends raw
+  X/Y and the central does the rest, so **both halves must be flashed together**.
+- Skipping rotation per layer: the rotator is its own device, so a `layers` child on the stage-1 listener with a
+  scroll chain (no rotate) is final on that layer (a matching child replaces the base chain). Compiled OK (local build);
+  right `zephyr.dts` shows `lower_vscroll` and the left listener's `lmouse_rotate`/`raise_rotate` children.
+- Angle convention: user's "+45" for the left ball = clockwise = module −45 (mirror of the right ball's module +45).
+- *Unverified on hardware:* scroll directions for the unrotated Lower (the two balls have different base orientation:
+  both `xy-swap`, no inverts, but mounted mirrored), left-ball rotation sign, `&lt` timing on `C`/`V`/`,`/`M` (stock
+  200 ms hold-preferred; mod-tap/layer-tap tuning is deferred), and BLE latency of raw left-ball X/Y.
+- Gotcha: on LMouse/RMouse nothing else works (no Raise/Mouse thumbs), by design.
 
 ## Device & Studio RPC
 
