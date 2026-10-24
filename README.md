@@ -58,12 +58,26 @@ combos, macros and hold-tap behaviors — and commits straight to this repo, tri
 
 Full guide: [docs/flashing.md](docs/flashing.md).
 
-1. Open the latest successful **Build ZMK firmware** run under *Actions* and download the `firmware` artifact
-   (or `gh run download`).
-2. Plug in **one** half, double-tap its reset button — a `NICENANO` drive appears.
-3. Copy `crosses_35_right.uf2` / `crosses_35_left.uf2` to the matching half. It reboots when done.
-4. Keymap-only changes need just the right half. If halves stop pairing, flash `settings_reset` to both, then
-   re-flash both.
+Commands are for fish; the build must be green first (`gh run list -L 3`).
+
+```fish
+# 1. Download the firmware from the latest successful build on main
+set run (gh run list --workflow build.yml --branch main --status success -L 1 --json databaseId --jq '.[0].databaseId')
+rm -rf /tmp/crosses-fw; gh run download $run -D /tmp/crosses-fw
+ls /tmp/crosses-fw/firmware   # crosses_35_right.uf2  crosses_35_left.uf2  settings_reset-nice_nano-zmk.uf2
+
+# 2. Plug in ONE half and double-tap its reset button; a NICENANO drive appears
+ls /run/media/$USER/NICENANO
+
+# 3. Copy the matching file (the board reboots by itself; a "copy failed" message at the end is normal)
+cp /tmp/crosses-fw/firmware/crosses_35_right.uf2 /run/media/$USER/NICENANO/   # right half
+# ...then, with the left half in the bootloader instead:
+cp /tmp/crosses-fw/firmware/crosses_35_left.uf2 /run/media/$USER/NICENANO/    # left half
+```
+
+Keymap/trackball changes need only the right half. If the halves stop pairing, flash `settings_reset-nice_nano-zmk.uf2`
+to both, then re-flash both (this wipes Bluetooth bonds). After flashing, run *Restore Stock Settings* in ZMK Studio
+if you ever saved Studio edits.
 
 ---
 

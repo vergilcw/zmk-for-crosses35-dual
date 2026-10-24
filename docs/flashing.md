@@ -22,7 +22,7 @@ Artifacts: `crosses_35_right.uf2` (central + Studio), `crosses_35_left.uf2`,
 3. Copy the matching `.uf2` onto it; it reboots and unmounts by itself (a "copy failed" error at the end is normal).
 
    ```fish
-   cp /tmp/crosses-fw/crosses_35_right/*.uf2 /run/media/$USER/NICENANO/
+   cp /tmp/crosses-fw/firmware/crosses_35_right.uf2 /run/media/$USER/NICENANO/
    ```
 
 4. Repeat for the other half. Flash **both** halves when the split protocol or shared config changes;
