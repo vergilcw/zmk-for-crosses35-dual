@@ -33,6 +33,18 @@ Newest entries go at the top of each section.
 - Local docker build: `zmkfirmware/zmk-build-arm:4.1` (matches the ZMK workflow); `:stable` is the wrong Zephyr.
   Workspace ≈ 5 GB; `/` had 8 GB free afterwards.
 
+## Left trackball: rotation and axis-locked scroll (2026-10-24)
+
+- Before this, the left ball was **not rotated** (peripheral ran `xy_to_scroll_mapper` + `zip_scroll_scaler 1 2`; no angle
+  anywhere). Now: peripheral sends raw X/Y; central rotates by `angle = <(-45)>` (custom `zip_rotate_left`, device-name
+  `left`) — the mirror of the right ball's +45 (user's "+45" convention = clockwise = module −45) — then
+  `left_ball_listener` locks the axis by layer (see hardware.md). Layer state exists only on the central, which is why
+  the work moved off the peripheral. **Both halves must be flashed** for this change.
+- Axis lock: `zip_x_scaler 0 1` zeroes X before the mapper (vertical only); `zip_y_scaler 0 1` for horizontal; the
+  child node's `layers = <LOWER RAISE>` replaces the base chain. Compiled OK (local build, both halves).
+- *Unverified on hardware:* rotation sign for the left ball, horizontal scroll direction, and that BLE carries the raw
+  X/Y fast enough (the peripheral still rate-limits via `zip_ble_report_rate_limit`).
+
 ## Device & Studio RPC
 
 - **2026-10-10** — Right half enumerates as `/dev/ttyACM0`

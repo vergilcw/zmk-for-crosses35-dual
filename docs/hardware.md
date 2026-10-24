@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | Split role | **Central** (talks to host, USB + BLE) | Peripheral (talks only to right half) |
 | ZMK Studio | Yes (`studio-rpc-usb-uart` snippet, `CONFIG_ZMK_STUDIO=y`) | No |
-| Trackball | PMW3610, CPI 800, `force-high-performance` → rotated 45° CCW; **pointer** (Base/Mouse), **scroll** (Lower), **snipe** (Raise) | PMW3610, CPI 600 → **scroll** (`zip_xy_to_scroll_mapper` + `zip_scroll_scaler 1 2`) |
+| Trackball | PMW3610, CPI 800, `force-high-performance` → rotated 45° CCW; **pointer** (Base/Mouse), **scroll** (Lower), **snipe** (Raise) | PMW3610, CPI 600 → **scroll**, vertical only (horizontal-only while Lower/Raise held), rotated 45° CW; (`zip_xy_to_scroll_mapper` + `zip_scroll_scaler 1 2`) |
 | USB name | `Crosses BT` (`/dev/serial/by-id/usb-ZMK_Project_Crosses_BT_*`) | — |
 | Artifact | `crosses_35_right` | `crosses_35_left` |
 
@@ -56,7 +56,16 @@ trackball_central (driver) → trackball_central_listener [shield; input-process
        RAISE: zip_xy_scaler 1 4 → rate limit
 ```
 
-The left ball is untouched (always scroll). Details and sign conventions: knowledge base, "Right trackball port".
+Left ball (2026-10-24): the left half now sends raw X/Y (only the rate limiter runs there); the central does the rest:
+
+```
+trackball_peripheral_split → trackball_peripheral_listener [input-processors = zip_rotate_left, angle -45]
+  → left_ball_listener [config/crosses.keymap]
+       base:           zip_x_scaler 0 1 (vertical only) → xy_to_scroll_mapper → zip_scroll_scaler 1 2
+       LOWER or RAISE: zip_y_scaler 0 1 (horizontal only) → xy_to_scroll_mapper → zip_scroll_scaler 1 2
+```
+
+Details and sign conventions: knowledge base, "Right trackball port".
 
 ## Physical layout
 

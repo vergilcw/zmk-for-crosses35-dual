@@ -29,6 +29,15 @@
     input-processors = <&zip_rotate_pointer>;
 };
 
+/* Left (peripheral) trackball: raw X/Y are sent to the central, which rotates and then scrolls. */
+&trackball_peripheral_split {
+    input-processors = <&zip_ble_report_rate_limit>;
+};
+
+&trackball_peripheral_listener {
+    input-processors = <&zip_rotate_left>;
+};
+
 / {
     chosen { zmk,physical-layout = &gggw_crosses_36_layout; };
 
@@ -37,7 +46,6 @@
      *   Base/Mouse: pointer    Lower: scroll    Raise: snipe (1/4 speed)
      * Stage 1 (trackball_central_listener, defined in the shield) only rotates; stage 2 reads the
      * rotated events from the processor device and applies the layer behaviour.
-     * The left trackball is untouched (always scroll, see the shield).
      */
     rotated_pointer_listener {
         compatible = "zmk,input-listener";
@@ -52,6 +60,31 @@
         raise_snipe {
             layers = <RAISE>;
             input-processors = <&zip_xy_scaler 1 4>, <&zip_ble_report_rate_limit>;
+        };
+    };
+
+    /* Mirror of the right ball: +45 deg in the Crosses 36 sign convention (clockwise) = -45 for this module. */
+    zip_rotate_left: zip_rotate_left {
+        compatible = "zmk,input-processor-rotate-plane";
+        device-name = "left";
+        #input-processor-cells = <0>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X INPUT_REL_Y>;
+        angle = <(-45)>;
+    };
+
+    /*
+     * Left trackball: vertical scroll only (X zeroed); while Lower or Raise is held, horizontal
+     * scroll only (Y zeroed). Layer state lives on the central, hence the processing here.
+     */
+    left_ball_listener {
+        compatible = "zmk,input-listener";
+        device = <&zip_rotate_left>;
+        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
+
+        horizontal_scroll {
+            layers = <LOWER RAISE>;
+            input-processors = <&zip_y_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
         };
     };
 

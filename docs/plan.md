@@ -68,7 +68,7 @@ and right-trackball behaviour minus the outer pinky columns and the second ball.
 - [ ] Axis-locked scrolling (vertical-only / horizontal-only) for the left (scroll) trackball: layer-scoped
       scaler that zeroes `INPUT_REL_HWHEEL` or `INPUT_REL_WHEEL` on the central listener.
 - [x] Trackball angle on the right ball: `efogdev/zmk-input-processor-rotate-plane` at 45° (= "−45° CCW" of the
-      Crosses 36 repo). Built, not yet flashed. [ ] Decide whether the left (scroll) ball needs rotation too.
+      Crosses 36 repo). Built, not yet flashed. [ ] Left ball: rotated −45 (module) and axis-locked scroll added 2026-10-24, awaiting flash/test of both halves.
 - [ ] Trackball → volume / brightness on a layer: needs a motion→keypress input processor (research
       candidates); decide which ball and layer.
 - [ ] Decide where overrides live: `config/crosses_{left,right}.overlay` (verify ZMK picks these up for split
