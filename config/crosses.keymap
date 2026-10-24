@@ -1,6 +1,8 @@
 /*
  * Crosses 35 dual-trackball keymap.
  *
+ * No Q+W combo; ' stays on the Base right pinky (not swapped with ;, unlike Crosses 36).
+ *
  * Bindings were exported from the keyboard's ZMK Studio state on 2026-10-10
  * (scripts/studio_dump.py -> scripts/studio_to_keymap.py; raw snapshot in
  * docs/studio-snapshots/). Studio-saved bindings in flash override this file
@@ -60,7 +62,7 @@
             display-name = "Base";
             bindings = <
 &kp Q           &kp W            &kp E  &kp R  &kp T  &kp Y  &kp U        &kp I      &kp O          &kp P
-&kp A           &kp S            &kp D  &kp F  &kp G  &kp H  &kp J        &kp K      &kp L          &kp SEMI
+&kp A           &kp S            &kp D  &kp F  &kp G  &kp H  &kp J        &kp K      &kp L          &kp SQT
 &mt LALT Z      &mt LSHFT X      &kp C  &kp V  &kp B  &kp N  &lt LOWER M  &kp COMMA  &mt LSHFT DOT  &mt RALT FSLH
                 &lt MOUSE TAB  &mt LSHFT BSPC  &lt LOWER ESC  &mt LCTRL RET  &lt RAISE SPACE  &kp LGUI
             >;
@@ -90,7 +92,7 @@
             display-name = "Mouse";
             bindings = <
 &bt BT_SEL 3  &kp HOME   &kp UP     &kp END    &bt BT_SEL 2  &kp PG_UP       &kp LBKT      &kp RBKT      &none     &kp EQUAL
-&bt BT_SEL 4  &kp LEFT   &kp DOWN   &kp RIGHT  &bt BT_SEL 1  &kp PG_DN       &kp LS(N9)    &kp LS(N0)    &kp SQT   &kp LS(SEMI)
+&bt BT_SEL 4  &kp LEFT   &kp DOWN   &kp RIGHT  &bt BT_SEL 1  &kp PG_DN       &kp LS(N9)    &kp LS(N0)    &kp SEMI  &kp LS(SEMI)
 &kp LALT      &mkp MCLK  &mkp RCLK  &mkp LCLK  &bt BT_SEL 0  &studio_unlock  &kp LS(LBKT)  &kp LS(RBKT)  &none     &kp LS(MINUS)
                          &none      &kp LSHFT  &none         &kp RET         &kp SPACE     &trans
             >;

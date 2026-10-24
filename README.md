@@ -24,7 +24,7 @@ Personal [ZMK](https://zmk.dev) firmware for a **wireless Crosses 35 split keybo
 
 | Layer | Reach | What's there |
 | --- | --- | --- |
-| **Base** | — | QWERTY, `;` on the right pinky (`'` is on Mouse), mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Esc/Lower — Ret/Ctrl · Space/Raise · Gui |
+| **Base** | — | QWERTY, `'` on the right pinky, mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Esc/Lower — Ret/Ctrl · Space/Raise · Gui |
 | **Lower** | hold left-inner thumb or M | Navigation (Home/arrows/End), media + brightness, F-keys, mouse buttons on right thumbs, USB/BT toggle. **Right trackball scrolls.** |
 | **Raise** | hold right-middle thumb | Symbols on the left, numpad on the right, media prev/next. **Right trackball in slow snipe mode.** |
 | **Mouse** | hold left-outer thumb | Bluetooth profiles 0–4, mouse buttons, brackets/parens, Studio unlock |

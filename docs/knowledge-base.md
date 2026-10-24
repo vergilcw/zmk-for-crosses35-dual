@@ -27,8 +27,9 @@ Newest entries go at the top of each section.
   `zip_rotate_pointer { angle = <0x2d>; }`, the listener children with layers 1/2, and `.config` has
   `CONFIG_ZMK_INPUT_PROCESSOR_ROTATE_PLANE=y`. Left half also builds (the rotate node and listener are
   present but idle there; `trackball_central_listener` is disabled on the left).
-- `;` / `'`: the reference moved `'` to an outer pinky key. This board has none, so `;` replaced `'` on Base and `'`
-  took `;`'s slot on the Mouse layer (previously the only `;` in the keymap). Reach `'` via hold-Mouse.
+- `;` / `'`: the reference swapped them (`'` on an outer pinky key). Decision (user, 2026-10-24): not ported — this
+  board has no outer column and `'` stays on the Base right pinky; `;` stays on the Mouse layer only. The 36 repo may
+  be updated to match.
 - Local docker build: `zmkfirmware/zmk-build-arm:4.1` (matches the ZMK workflow); `:stable` is the wrong Zephyr.
   Workspace ≈ 5 GB; `/` had 8 GB free afterwards.
 

@@ -21,7 +21,7 @@ New work discovered mid-task lands here; triage into a phase before ending a ses
 Reference: `/home/vergilcw/zmk-for-crosses` branch `36` (`docs/plan.md`, `docs/knowledge-base.md`). Goal: same keymap
 and right-trackball behaviour minus the outer pinky columns and the second ball.
 
-- [x] `;` on Base right home row, `'` takes `;`'s old Mouse-layer slot (this board has no outer column).
+- [-] `;`/`'` swap skipped (user, 2026-10-24): `'` stays on the Base right pinky; `;` stays on Mouse. The 36 repo may be changed to match later.
 - [x] Q+W combo and unused `&as` behavior removed.
 - [x] Right ball: rotate 45° CCW, Lower = scroll, Raise = snipe, Base/Mouse = pointer (keymap file).
 - [x] Local docker build of both halves compiles; devicetree checked (knowledge base).
