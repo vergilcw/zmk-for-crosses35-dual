@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | Split role | **Central** (talks to host, USB + BLE) | Peripheral (talks only to right half) |
 | ZMK Studio | Yes (`studio-rpc-usb-uart` snippet, `CONFIG_ZMK_STUDIO=y`) | No |
-| Trackball | PMW3610, CPI 800, `force-high-performance` → **pointer** | PMW3610, CPI 600 → **scroll** (`zip_xy_to_scroll_mapper` + `zip_scroll_scaler 1 2`) |
+| Trackball | PMW3610, CPI 800, `force-high-performance` → rotated 45° CCW; **pointer** (Base/Mouse), **scroll** (Lower), **snipe** (Raise) | PMW3610, CPI 600 → **scroll** (`zip_xy_to_scroll_mapper` + `zip_scroll_scaler 1 2`) |
 | USB name | `Crosses BT` (`/dev/serial/by-id/usb-ZMK_Project_Crosses_BT_*`) | — |
 | Artifact | `crosses_35_right` | `crosses_35_left` |
 
@@ -44,6 +44,19 @@ Snapshot of the inherited shield settings (2026-10-10, `cb-zmk-keebs` HEAD `d9e6
   anti-warp.
 - `crosses_right.overlay` uses `xy-swap` with `x-invert`/`y-invert` commented out; that's where
   orientation is currently set.
+
+## Right-trackball event chain (keymap file)
+
+```
+trackball_central (driver) → trackball_central_listener [shield; input-processors = zip_rotate_pointer]
+  → zip_rotate_pointer (efogdev/zmk-input-processor-rotate-plane, angle 45)
+  → rotated_pointer_listener [config/crosses.keymap]
+       base:  zip_ble_report_rate_limit
+       LOWER: zip_xy_to_scroll_mapper → zip_scroll_scaler 1 2 → rate limit
+       RAISE: zip_xy_scaler 1 4 → rate limit
+```
+
+The left ball is untouched (always scroll). Details and sign conventions: knowledge base, "Right trackball port".
 
 ## Physical layout
 

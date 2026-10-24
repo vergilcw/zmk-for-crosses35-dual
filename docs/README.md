@@ -7,4 +7,5 @@
 | [hardware.md](hardware.md) | Hardware + firmware architecture: halves, trackballs, modules, config layering. |
 | [keymap-workflow.md](keymap-workflow.md) | Editing the keymap, exporting from ZMK Studio, rendering images. |
 | [flashing.md](flashing.md) | Getting firmware from CI, flashing each half, resetting settings. |
+| [../scripts/local_build.sh](../scripts/local_build.sh) | Local docker build of both halves (see keymap-workflow.md). |
 | [studio-snapshots/](studio-snapshots/) | Raw JSON dumps of the on-device Studio keymap (historical record). |

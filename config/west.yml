@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: Good-Great-Grand-Wonderful
       url-base: https://github.com/Good-Great-Grand-Wonderful
+    - name: efogdev
+      url-base: https://github.com/efogdev
     - name: HeeTuic  
       url-base: https://github.com/HeeTuic    
   projects:
@@ -13,6 +15,9 @@ manifest:
       remote: zmkfirmware
       revision: ac7f75b8591d39aaf3b66b9d26f26c9ed921a009
       import: app/west.yml
+    - name: zmk-input-processor-rotate-plane
+      remote: efogdev
+      revision: 86901be4463d02d2a653d2d2d708068baba42b04
     - name: cb-zmk-keebs
       remote: HeeTuic
       revision: zephyr-4.1

@@ -8,8 +8,24 @@ rock-solid BLE/USB. Status legend: `[x]` done, `[ ]` todo, `[~]` in progress.
 
 New work discovered mid-task lands here; triage into a phase before ending a session.
 
-- [ ] Decide whether to keep the Q+W → Esc combo (Base already has Esc on a thumb `&lt`).
+- [ ] Flash the 2026-10-24 port build (rotation/scroll/snipe/`;`) and tune: rotation sign, Lower scroll
+      speed/direction (`zip_scroll_scaler 1 2` is copied from the left ball, unverified for the right) — see
+      knowledge base "Right trackball port".
+- [ ] Pin the remaining floating west revisions (`cb-zmk-keebs@zephyr-4.1`, `efogdev/zmk-pmw3610-driver`,
+      `zmk-report-rate-limit`, `zmk-input-processor-xyz`); a driver update could silently change pointer feel.
+- [x] Q+W → Esc combo dropped (2026-10-24, matches the Crosses 36 repo; Esc is on the Esc/Lower thumb).
 - [ ] Review odd bindings carried over from Studio (see knowledge base, "Keymap oddities").
+
+## Port from Crosses 36 (2026-10-24)
+
+Reference: `/home/vergilcw/zmk-for-crosses` branch `36` (`docs/plan.md`, `docs/knowledge-base.md`). Goal: same keymap
+and right-trackball behaviour minus the outer pinky columns and the second ball.
+
+- [x] `;` on Base right home row, `'` takes `;`'s old Mouse-layer slot (this board has no outer column).
+- [x] Q+W combo and unused `&as` behavior removed.
+- [x] Right ball: rotate 45° CCW, Lower = scroll, Raise = snipe, Base/Mouse = pointer (keymap file).
+- [x] Local docker build of both halves compiles; devicetree checked (knowledge base).
+- [ ] Push (**ask first**), confirm CI, flash right half (**ask first**), tune.
 
 ## Phase 0 — Foundations
 
@@ -31,8 +47,7 @@ New work discovered mid-task lands here; triage into a phase before ending a ses
       re-verify with `scripts/studio_dump.py` that device == `config/crosses.keymap`.
 - [ ] Pin floating west revisions (`cb-zmk-keebs@zephyr-4.1`, and its `main`-tracking imports) to commits
       for reproducible builds; record them in the knowledge base.
-- [ ] Optional: local docker build path (`zmkfirmware/zmk-build-arm`) — root fs has ~8 GB free, so either
-      relocate docker's data-root (system-config change) or stick with CI.
+- [x] Local docker build path: `scripts/local_build.sh` (image `zmk-build-arm:4.1`; ~5 GB in `.west-workspace/`).
 
 ## Phase 2 — Typing accuracy & keymap cleanup
 
@@ -47,12 +62,13 @@ New work discovered mid-task lands here; triage into a phase before ending a ses
 
 ## Phase 3 — Pointing features
 
-- [ ] Sniper mode while Raise is held: child node on the right (central) trackball listener with
-      `layers = <RAISE>` and `input-processors = <&zip_xy_scaler 1 4>` (tune divisor).
+- [x] Sniper mode while Raise is held: `raise_snipe` child of `rotated_pointer_listener` (`zip_xy_scaler 1 4`).
+      Built, not yet flashed/tuned (2026-10-24).
+- [x] Scroll on the right ball while Lower is held (ported from the Crosses 36 repo).
 - [ ] Axis-locked scrolling (vertical-only / horizontal-only) for the left (scroll) trackball: layer-scoped
       scaler that zeroes `INPUT_REL_HWHEEL` or `INPUT_REL_WHEEL` on the central listener.
-- [ ] Trackball angle: rotate pointer to match hand position — candidate module
-      `efogdev/zmk-input-processor-rotate-plane` (`&zip_rotate_pointer { angle = <N>; }`). Measure angle per side.
+- [x] Trackball angle on the right ball: `efogdev/zmk-input-processor-rotate-plane` at 45° (= "−45° CCW" of the
+      Crosses 36 repo). Built, not yet flashed. [ ] Decide whether the left (scroll) ball needs rotation too.
 - [ ] Trackball → volume / brightness on a layer: needs a motion→keypress input processor (research
       candidates); decide which ball and layer.
 - [ ] Decide where overrides live: `config/crosses_{left,right}.overlay` (verify ZMK picks these up for split

@@ -16,8 +16,11 @@ experiments; anything worth keeping gets exported and codified here.
 
    keymap-drawer fetches glyph SVGs from raw.githubusercontent.com, which is unreachable from the dev machine in
    agent sessions; see the knowledge base for the `gh api` cache-seeding workaround.
-3. Push → `build.yml` builds firmware, `draw-keymaps.yml` re-renders and commits `keymap-drawer/crosses.{yaml,svg}`.
-4. Flash (see flashing.md), then **Restore Stock Settings** in Studio if Studio edits were ever saved.
+3. Compile-check without pushing: `scripts/local_build.sh [right|left|both]` (docker, `zmk-build-arm:4.1`;
+   first run clones ZMK into the gitignored `.west-workspace/`, ~5 GB). Check `.west-workspace/build/right/zephyr/zephyr.dts`
+   for the resolved devicetree. Note `config/west.yml` changes need a fresh `west update` (the script does it).
+4. Push → `build.yml` builds firmware, `draw-keymaps.yml` re-renders and commits `keymap-drawer/crosses.{yaml,svg}`.
+5. Flash (see flashing.md), then **Restore Stock Settings** in Studio if Studio edits were ever saved.
 
 ## Studio state overrides the firmware keymap
 

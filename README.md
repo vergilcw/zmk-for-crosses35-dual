@@ -9,7 +9,8 @@ Personal [ZMK](https://zmk.dev) firmware for a **wireless Crosses 35 split keybo
 > ⚠️ Only for the **MIAOMIAO / HeeTuic modified-PCB** Crosses 35 dual-trackball. Pinouts differ from the
 > original [GGGW Crosses](https://github.com/Good-Great-Grand-Wonderful/crosses); don't flash this on other boards.
 
-- **Right half** — central: connects to the computer over USB/Bluetooth, runs ZMK Studio, trackball = pointer.
+- **Right half** — central: connects to the computer over USB/Bluetooth, runs ZMK Studio, trackball = pointer
+  (scroll on Lower, slow "snipe" on Raise, rotated 45° counterclockwise).
 - **Left half** — peripheral: trackball = scroll wheel.
 
 ---
@@ -23,10 +24,14 @@ Personal [ZMK](https://zmk.dev) firmware for a **wireless Crosses 35 split keybo
 
 | Layer | Reach | What's there |
 | --- | --- | --- |
-| **Base** | — | QWERTY, `'` on the right pinky, mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Esc/Lower — Ret/Ctrl · Space/Raise · Gui |
-| **Lower** | hold left-inner thumb or M | Navigation (Home/arrows/End), media + brightness, F-keys, mouse buttons on right thumbs, USB/BT toggle |
-| **Raise** | hold right-middle thumb | Symbols on the left, numpad on the right, media prev/next |
+| **Base** | — | QWERTY, `;` on the right pinky (`'` is on Mouse), mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Esc/Lower — Ret/Ctrl · Space/Raise · Gui |
+| **Lower** | hold left-inner thumb or M | Navigation (Home/arrows/End), media + brightness, F-keys, mouse buttons on right thumbs, USB/BT toggle. **Right trackball scrolls.** |
+| **Raise** | hold right-middle thumb | Symbols on the left, numpad on the right, media prev/next. **Right trackball in slow snipe mode.** |
 | **Mouse** | hold left-outer thumb | Bluetooth profiles 0–4, mouse buttons, brackets/parens, Studio unlock |
+
+The keymap mirrors my [Crosses 36](https://github.com/vergilcw/zmk-for-crosses36) (single-trackball) board's inner
+block, minus its outer pinky columns. Trackball rotation/layer behaviour is in the keymap file
+(see [docs/hardware.md](docs/hardware.md)); the left ball is always a scroll wheel.
 
 ---
 
@@ -64,8 +69,8 @@ Full guide: [docs/flashing.md](docs/flashing.md).
 
 ## 📚 Project docs
 
-- [docs/plan.md](docs/plan.md) — roadmap (typing fixes, sniper mode, axis-locked scrolling, trackball angle,
-  mic-mute key, connectivity hardening)
+- [docs/plan.md](docs/plan.md) — roadmap and status (typing fixes, axis-locked scrolling, mic-mute key,
+  connectivity hardening)
 - [docs/hardware.md](docs/hardware.md) — how the halves, trackballs and ZMK modules fit together
 - [docs/knowledge-base.md](docs/knowledge-base.md) — findings, gotchas, decisions
 - [AGENTS.md](AGENTS.md) — instructions for AI coding agents working in this repo

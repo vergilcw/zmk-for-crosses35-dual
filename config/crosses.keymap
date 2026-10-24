@@ -12,32 +12,44 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <input/processors/rotate_plane.dtsi>
 
 #define BASE  0
 #define LOWER 1
 #define RAISE 2
 #define MOUSE 3
 
+&zip_rotate_pointer {
+    angle = <45>; /* +45 here == "-45 / counterclockwise" in the Crosses 36 repo */
+};
+
+&trackball_central_listener {
+    input-processors = <&zip_rotate_pointer>;
+};
+
 / {
     chosen { zmk,physical-layout = &gggw_crosses_36_layout; };
 
-    behaviors {
-        as: auto_shift {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping_term_ms = <200>;
-            quick_tap_ms = <0>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
+    /*
+     * Right (central) trackball: rotated 45 deg counterclockwise, then per layer
+     *   Base/Mouse: pointer    Lower: scroll    Raise: snipe (1/4 speed)
+     * Stage 1 (trackball_central_listener, defined in the shield) only rotates; stage 2 reads the
+     * rotated events from the processor device and applies the layer behaviour.
+     * The left trackball is untouched (always scroll, see the shield).
+     */
+    rotated_pointer_listener {
+        compatible = "zmk,input-listener";
+        device = <&zip_rotate_pointer>;
+        input-processors = <&zip_ble_report_rate_limit>;
+
+        lower_scroll {
+            layers = <LOWER>;
+            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>, <&zip_ble_report_rate_limit>;
         };
-    };
 
-    combos {
-        compatible = "zmk,combos";
-
-        esc {
-            bindings = <&kp ESCAPE>;
-            key-positions = <0 1>;
+        raise_snipe {
+            layers = <RAISE>;
+            input-processors = <&zip_xy_scaler 1 4>, <&zip_ble_report_rate_limit>;
         };
     };
 
@@ -48,7 +60,7 @@
             display-name = "Base";
             bindings = <
 &kp Q           &kp W            &kp E  &kp R  &kp T  &kp Y  &kp U        &kp I      &kp O          &kp P
-&kp A           &kp S            &kp D  &kp F  &kp G  &kp H  &kp J        &kp K      &kp L          &kp SQT
+&kp A           &kp S            &kp D  &kp F  &kp G  &kp H  &kp J        &kp K      &kp L          &kp SEMI
 &mt LALT Z      &mt LSHFT X      &kp C  &kp V  &kp B  &kp N  &lt LOWER M  &kp COMMA  &mt LSHFT DOT  &mt RALT FSLH
                 &lt MOUSE TAB  &mt LSHFT BSPC  &lt LOWER ESC  &mt LCTRL RET  &lt RAISE SPACE  &kp LGUI
             >;
@@ -78,7 +90,7 @@
             display-name = "Mouse";
             bindings = <
 &bt BT_SEL 3  &kp HOME   &kp UP     &kp END    &bt BT_SEL 2  &kp PG_UP       &kp LBKT      &kp RBKT      &none     &kp EQUAL
-&bt BT_SEL 4  &kp LEFT   &kp DOWN   &kp RIGHT  &bt BT_SEL 1  &kp PG_DN       &kp LS(N9)    &kp LS(N0)    &kp SEMI  &kp LS(SEMI)
+&bt BT_SEL 4  &kp LEFT   &kp DOWN   &kp RIGHT  &bt BT_SEL 1  &kp PG_DN       &kp LS(N9)    &kp LS(N0)    &kp SQT   &kp LS(SEMI)
 &kp LALT      &mkp MCLK  &mkp RCLK  &mkp LCLK  &bt BT_SEL 0  &studio_unlock  &kp LS(LBKT)  &kp LS(RBKT)  &none     &kp LS(MINUS)
                          &none      &kp LSHFT  &none         &kp RET         &kp SPACE     &trans
             >;

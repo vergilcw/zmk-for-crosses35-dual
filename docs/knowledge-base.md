@@ -3,6 +3,35 @@
 Dated, evidence-backed findings. Mark anything not directly verified as *unverified*.
 Newest entries go at the top of each section.
 
+## Right trackball port from Crosses 36 (2026-10-24)
+
+- Reference repo behaviour: pointer on Base/Mouse, scroll on Lower, snipe (¼) on Raise, rotated 45° CCW. There it is
+  done in a vendored DoctorWangWang driver; this repo uses efogdev's `pixart,pmw3610-efogtech` driver, which has no
+  rotation/layer modes, so it is done with ZMK input processors instead (all in `config/crosses.keymap`).
+- Chain: `trackball_central_listener` (shield; we override its `input-processors` to `<&zip_rotate_pointer>`) →
+  rotate-plane processor device → our `rotated_pointer_listener` (`device = <&zip_rotate_pointer>`) whose base chain is
+  the rate limiter and whose `layers` children override it: `lower_scroll` (`zip_xy_to_scroll_mapper`,
+  `zip_scroll_scaler 1 2`) and `raise_snipe` (`zip_xy_scaler 1 4`). A matching child replaces the base chain, so each
+  child repeats `zip_ble_report_rate_limit`.
+- Module: `efogdev/zmk-input-processor-rotate-plane` pinned to `86901be` in `config/west.yml`; self-contained
+  (`zmk_runtime_config` is optional, `ZRC_GET` falls back to the Kconfig default). It buffers X/Y until both arrive or
+  1 ms elapses, rotates in float with remainders. An angle saved via its shell (`plane set`) persists in flash and would
+  override the DT value — *unverified* whether any is stored (none was ever set).
+- **Sign:** the module computes `x' = x·cos a − y·sin a`, the same matrix as the 36 repo's driver with
+  `ROTATION_DEG = −a`. So `angle = <45>` here ≙ `CONFIG_PMW3610_ROTATION_DEG=-45` there. The base orientation here is
+  `xy-swap` only (the 36 board uses `ORIENTATION_270` + `INVERT_X`), so *unverified on hardware* that the same sign
+  gives "roll toward 10:30 → straight up". If it tilts the wrong way, change to `-45`.
+- Scroll scaler `1 2` was copied from the left ball (CPI 600); the right ball is CPI 800 so it scrolls a bit faster,
+  and direction (no `y-invert`) is *unverified*. Snipe ¼ matches the reference's 400/1600 CPI ratio.
+- Verification: `scripts/local_build.sh` (zmk-build-arm:4.1) built both halves; right `zephyr.dts` contains
+  `zip_rotate_pointer { angle = <0x2d>; }`, the listener children with layers 1/2, and `.config` has
+  `CONFIG_ZMK_INPUT_PROCESSOR_ROTATE_PLANE=y`. Left half also builds (the rotate node and listener are
+  present but idle there; `trackball_central_listener` is disabled on the left).
+- `;` / `'`: the reference moved `'` to an outer pinky key. This board has none, so `;` replaced `'` on Base and `'`
+  took `;`'s slot on the Mouse layer (previously the only `;` in the keymap). Reach `'` via hold-Mouse.
+- Local docker build: `zmkfirmware/zmk-build-arm:4.1` (matches the ZMK workflow); `:stable` is the wrong Zephyr.
+  Workspace ≈ 5 GB; `/` had 8 GB free afterwards.
+
 ## Device & Studio RPC
 
 - **2026-10-10** — Right half enumerates as `/dev/ttyACM0`
@@ -24,8 +53,8 @@ Newest entries go at the top of each section.
   IDs are firmware-specific; the converter maps by display name.
 - **2026-10-10** — HID usage encoding in Studio params: `(implicit_mods << 24) | (page << 16) | id`;
   e.g. `0x0207001E` = `LS(N1)`.
-- **Combos are not visible over Studio RPC** — the Q+W→Esc combo can't be confirmed on-device; it's kept
-  because it was in the firmware source this device was built from.
+- **Combos are not visible over Studio RPC.** The Q+W→Esc combo was removed from the keymap on 2026-10-24; the
+  device keeps the old one until flashed.
 
 ## Keymap oddities (carried over verbatim from Studio, 2026-10-10)
 

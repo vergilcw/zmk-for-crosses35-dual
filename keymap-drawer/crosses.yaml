@@ -20,7 +20,7 @@ layers:
   - J
   - K
   - L
-  - ''''
+  - ;
   - {t: Z, h: '$$mdi:apple-keyboard-option$$'}
   - {t: X, h: '$$mdi:apple-keyboard-shift$$'}
   - C
@@ -130,7 +130,7 @@ layers:
   - $$mdi:transfer-down$$
   - (
   - )
-  - ;
+  - ''''
   - ':'
   - $$mdi:apple-keyboard-option$$
   - {t: '$$mdi:mouse$$', h: middle}
@@ -148,6 +148,3 @@ layers:
   - $$mdi:keyboard-return$$
   - $$mdi:keyboard-space$$
   - {t: '$$mdi:transfer$$', type: trans}
-combos:
-- p: [0, 1]
-  k: $$mdi:keyboard-esc$$
