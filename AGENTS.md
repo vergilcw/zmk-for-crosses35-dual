@@ -69,6 +69,10 @@ queries, local docker builds (mind disk space, see knowledge base).
   docs for that era, not the v0.3 docs, when using newer features
   (input processors, physical layouts, Studio).
 - **Commits:** small, descriptive; include the Copilot co-author trailer.
+- **Before pushing:** run `git fetch` and check `git log HEAD..origin/main`. The draw workflow
+  commits `keymap-drawer/crosses.{svg,yaml}` to `main` after every push, so the next push is usually rejected
+  as non-fast-forward. If it is, `git rebase -X theirs origin/main` (in a rebase "theirs" is *your* commit, so
+  your freshly rendered diagram wins and CI redraws it anyway), then push. Never force-push.
 
 ## Documentation stays in sync
 
