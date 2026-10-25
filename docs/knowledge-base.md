@@ -72,6 +72,12 @@ Newest entries go at the top of each section.
   mirrored (M1 under the index finger). PgUp/PgDn (col 5, right half) and Studio unlock are not on either layer.
   Modifiers (plain `&kp`, not mod-taps): LMouse right thumbs = LCTRL (leftmost, pos 33), LSHFT (middle, pos 34);
   RMouse left thumbs = LSHFT (pos 31, same place as on Base/Mouse), LCTRL (pos 32), for ctrl/shift-click.
+- **Raise/Lower rework (2026-10-25):** the Raise "+" key was `&kp LS(KP_PLUS)` = Left Shift + *keypad* plus (compiled
+  `0x2070057`; no Ctrl). Apps (browsers, viewers, maps) treat the keypad key as a zoom command, hence the user's "zoom
+  instead of plus". Now `&kp PLUS` (Shift+`=`, typed plus). Raise left row 2 cols 1–3 are now MCLK/RCLK/LCLK (same place as
+  Mouse); Prev/Play-Pause/Next moved to Lower row 1 cols 1–3 above vol−/mute/vol+ as plain keys, replacing Lower's ← ↓ →
+  (user choice; arrows remain on Mouse/LMouse/RMouse). Hardware test of the previous flash (eab86df: scroll fix,
+  free-hand clusters, thumb modifiers) passed (user, 2026-10-25).
 - Gotcha: on LMouse/RMouse nothing else works (no Raise/Mouse thumbs), by design.
 
 ## Device & Studio RPC
@@ -106,7 +112,7 @@ Kept as-is so the codified keymap matches the device; review in Phase 2.
   when typing fast.
 - Lower: top row starts `LS(N1)` (`!`) and ends `LS(N5)` (`%`) around Home/Up/End; middle row `N1` … `N5`;
   F-key block is `F1 F2 F3 F4 / F4 F5 F7 F11 / F1 F2 F3 F12` (duplicates, no F6/F8/F9/F10).
-- Raise: `LS(KP_PLUS)` (shifted keypad plus) for `+`; `LS(C_PP)` / `LS(C_NEXT)` (shift + media keys);
+- Raise: ~~`LS(KP_PLUS)`~~ (fixed 2026-10-25, see below); ~~`LS(C_PP)` / `LS(C_NEXT)` (shift + media keys)~~ (moved to Lower as plain keys);
   `&bt BT_CLR` on the G position.
 - Mouse: BT profiles 0–4 on the outer left columns; Home/arrows/End duplicated from Lower.
 

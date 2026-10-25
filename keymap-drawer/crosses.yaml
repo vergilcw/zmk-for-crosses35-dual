@@ -49,9 +49,9 @@ layers:
   - F3
   - F4
   - '1'
-  - $$mdi:arrow-left-bold$$
-  - $$mdi:arrow-down-bold$$
-  - $$mdi:arrow-right-bold$$
+  - $$mdi:skip-previous$$
+  - $$mdi:play-pause$$
+  - $$mdi:skip-next$$
   - '5'
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - F4
@@ -96,9 +96,9 @@ layers:
   - '6'
   - '-'
   - \
-  - $$mdi:skip-previous$$
-  - ⇧+$$mdi:play-pause$$
-  - ⇧+$$mdi:skip-next$$
+  - {t: '$$mdi:mouse$$', h: middle}
+  - {t: '$$mdi:mouse-right-click$$', h: right}
+  - {t: '$$mdi:mouse-left-click$$', h: left}
   - {t: '$$mdi:bluetooth-off$$', h: clear}
   - '0'
   - '1'

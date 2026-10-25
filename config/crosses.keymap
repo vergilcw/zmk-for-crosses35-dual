@@ -135,7 +135,7 @@
             display-name = "Lower";
             bindings = <
 &kp LS(N1)    &kp HOME      &kp UP      &kp END       &kp LS(N5)    &none         &kp F1     &kp F2     &kp F3  &kp F4
-&kp N1        &kp LEFT      &kp DOWN    &kp RIGHT     &kp N5        &none         &kp F4     &kp F5     &kp F7  &kp F11
+&kp N1        &kp C_PREV    &kp C_PP    &kp C_NEXT    &kp N5        &none         &kp F4     &kp F5     &kp F7  &kp F11
 &kp C_BRI_DN  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp C_BRI_UP  &out OUT_TOG  &kp F1     &kp F2     &kp F3  &kp F12
                             &trans      &trans        &trans        &trans        &trans     &trans
             >;
@@ -144,9 +144,9 @@
         raise_layer {
             display-name = "Raise";
             bindings = <
-&kp LS(N1)  &kp LS(N2)     &kp LS(N3)    &kp LS(N4)      &kp LS(N5)  &kp LS(KP_PLUS)  &kp N7  &kp N8  &kp N9  &kp PSCRN
+&kp LS(N1)  &kp LS(N2)     &kp LS(N3)    &kp LS(N4)      &kp LS(N5)  &kp PLUS         &kp N7  &kp N8  &kp N9  &kp PSCRN
 &kp GRAVE   &kp LS(GRAVE)  &kp LS(BSLH)  &kp LS(N7)      &kp LS(N6)  &kp LS(N8)       &kp N4  &kp N5  &kp N6  &kp MINUS
-&kp BSLH    &kp C_PREV     &kp LS(C_PP)  &kp LS(C_NEXT)  &bt BT_CLR  &kp N0           &kp N1  &kp N2  &kp N3  &kp DOT
+&kp BSLH    &mkp MCLK      &mkp RCLK     &mkp LCLK       &bt BT_CLR  &kp N0           &kp N1  &kp N2  &kp N3  &kp DOT
                            &kp LS(TAB)   &kp BSPC        &kp DEL     &trans           &trans  &trans
             >;
         };
