@@ -55,8 +55,10 @@ Snapshot of the inherited shield settings (2026-10-10, `cb-zmk-keebs` HEAD `d9e6
 | Mouse (hold `Tab`) / RMouse (hold `M`) | pointer, rotated 45° CCW | vertical-only scroll, unrotated |
 | LMouse (hold `V`) | pointer, rotated 45° CCW | pointer, rotated 45° CW (module angle 135, see KB) |
 
-LMouse (left-handed mouse): left thumbs are M3/M2/M1 = Tab-pos / Shift-pos / Esc-pos; RMouse: right thumbs are
-LCLK/RCLK/MCLK. Everything else on both layers is `&none`. The goal is one scheme that can be copied to the
+LMouse (left-handed mouse): left thumbs are M3/M2/M1 = Tab-pos / Shift-pos / Esc-pos; the right half has the Mouse-layer
+nav cluster (Home ↑ End / ← ↓ → in the same left-to-right order, not mirrored, index finger = ←/Home) with clicks on the
+bottom row (index = LCLK, then RCLK, MCLK). RMouse: right thumbs are LCLK/RCLK/MCLK and the left half has the Mouse layer's
+cluster and clicks (index = LCLK, then RCLK, MCLK to the left) without its Bluetooth keys. Everything else is `&none`. The goal is one scheme that can be copied to the
 single-trackball unibody boards.
 
 Rotation is a separate input-processor *device* (efogdev rotate-plane), so each ball is two stages:

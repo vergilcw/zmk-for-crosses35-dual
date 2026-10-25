@@ -66,6 +66,10 @@ Newest entries go at the top of each section.
   Left-ball plain vertical scroll (Base/Lower/Mouse/RMouse) was still inverted → the Y-invert added in test 1 is **removed
   from the left chain** (only the right Lower child inverts). Consistent with the left sensor reading both axes flipped
   (the 135° rotation); the user's earlier "both balls reversed" report was measured before that fix.
+- **LMouse/RMouse key content (2026-10-25):** RMouse = left half of the Mouse layer (Home/↑/End, ←/↓/→, MCLK/RCLK/LCLK on
+  cols 1–3) with `BT_SEL` and `LALT` replaced by `&none` so Bluetooth profiles can't change by accident; LMouse = same
+  cluster on the right half (cols 6–8: index finger = ←/Home/LCLK, clicks LCLK/RCLK/MCLK) — arrows not mirrored, clicks
+  mirrored (M1 under the index finger). PgUp/PgDn (col 5, right half) and Studio unlock are not on either layer.
 - Gotcha: on LMouse/RMouse nothing else works (no Raise/Mouse thumbs), by design.
 
 ## Device & Studio RPC
