@@ -8,6 +8,12 @@ rock-solid BLE/USB. Status legend: `[x]` done, `[ ]` todo, `[~]` in progress.
 
 New work discovered mid-task lands here; triage into a phase before ending a session.
 
+- [~] **Studio tweaking session (from 2026-10-25):** the user edits keys in ZMK Studio on the device, then asks to
+      import. Flow: user unlocks Studio and closes the zmk.studio tab (it holds the serial port) → read-only
+      `scripts/studio_dump.py` → diff against `config/crosses.keymap` (the converter may need updating for 6 layers,
+      `&mo`, and the `&lt`/`&mt`/`&mkp` display names) → codify, build, flash → *Restore Stock Settings* so Studio state
+      matches firmware again. Studio can't edit listeners, processors or hold-tap parameters; those stay in the file.
+
 - [ ] Flash the 2026-10-24 port build (rotation/scroll/snipe/`;`) and tune: rotation sign, Lower scroll
       speed/direction (`zip_scroll_scaler 1 2` is copied from the left ball, unverified for the right) — see
       knowledge base "Right trackball port".
