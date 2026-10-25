@@ -50,6 +50,16 @@ Newest entries go at the top of each section.
 - *Unverified on hardware:* scroll directions for the unrotated Lower (the two balls have different base orientation:
   both `xy-swap`, no inverts, but mounted mirrored), left-ball rotation sign, `&lt` timing on `C`/`V`/`,`/`M` (stock
   200 ms hold-preferred; mod-tap/layer-tap tuning is deferred), and BLE latency of raw left-ball X/Y.
+- **Hardware test 1 (2026-10-24, run 40138705893) and fixes:** (a) LMouse pointer on the left ball was fully mirrored (down=up,
+  left=right) → the left sensor reads both axes flipped vs the right ball, so `zip_rotate_left` is now `angle = <135>`
+  (= −45 + 180); this also flips Raise's horizontal scroll (direction untested). (b) Unrotated vertical scroll was reversed on
+  both balls → `zip_scroll_transform INPUT_TRANSFORM_Y_INVERT` after the mapper (right Lower child, left base chain; user
+  chose "both balls, everywhere"). (c) On RMouse the *right ball scrolled* instead of acting as a pointer. Cause not found:
+  `layers = <LOWER>` matches only layer 1 (source: `input_listener.c` `filter_with_input_config` tests every mask bit
+  with `zmk_keymap_layer_active`, first matching child wins). Mitigation: explicit `mouse_pointer` child (`layers = <LMOUSE RMOUSE>`,
+  rotate) placed before `lower_vscroll`. Suspects if it persists: Lower also active (e.g. a layer-tap on `,`/`C`
+  triggering under the resting finger), or a stale ZMK Studio keymap in flash still binding `M` to Lower
+  (`Restore Stock Settings` has never been run — see plan Phase 1). A read-only Studio dump would settle the latter.
 - Gotcha: on LMouse/RMouse nothing else works (no Raise/Mouse thumbs), by design.
 
 ## Device & Studio RPC

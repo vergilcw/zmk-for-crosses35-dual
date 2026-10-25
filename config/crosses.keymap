@@ -31,12 +31,15 @@
  *   Lower          vertical-only scroll, 0 deg   vertical-only scroll, 0 deg
  *   Raise          snipe (1/4), rot 45 CCW       horizontal-only scroll, rot 45 CW
  *   Mouse/RMouse   pointer, rot 45 CCW           vertical-only scroll, 0 deg
- *   LMouse         pointer, rot 45 CCW           pointer, rot 45 CW
+ *
+ * Vertical scroll is Y-inverted (verified on hardware 2026-10-24: the plain mapper scrolled backwards).
+ *   LMouse         pointer, rot 45 CCW           pointer, rot 45 CW (module angle 135, see below)
  *
  * The rotate-plane processors are separate devices, so each ball is a two-stage chain: a stage-1
  * listener (layer children choose whether to rotate or to short-circuit) and a stage-2 listener that
  * reads the rotated events and applies the layer behaviour. Module angle +45 = counterclockwise (what
- * the Crosses 36 repo calls -45); the left ball is the mirror image, -45.
+ * the Crosses 36 repo calls -45); the left ball is the mirror image (-45) plus 180 deg because its sensor reads
+ * both axes flipped relative to the right ball (hardware test, 2026-10-24) = 135.
  */
 
 /* Right ball. Base: rotate -> stage 2. Lower: unrotated vertical scroll, no stage 2. */
@@ -47,9 +50,15 @@
 &trackball_central_listener {
     input-processors = <&zip_rotate_pointer>;
 
+    /* First match wins: the mouse layers always get the rotated pointer, even if Lower is also active. */
+    mouse_pointer {
+        layers = <LMOUSE RMOUSE>;
+        input-processors = <&zip_rotate_pointer>;
+    };
+
     lower_vscroll {
         layers = <LOWER>;
-        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>, <&zip_ble_report_rate_limit>;
+        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_scroll_scaler 1 2>, <&zip_ble_report_rate_limit>;
     };
 };
 
@@ -60,7 +69,7 @@
 
 /* Base/Lower/Mouse/RMouse: unrotated vertical-only scroll. LMouse and Raise: rotate -> stage 2. */
 &trackball_peripheral_listener {
-    input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
+    input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_scroll_scaler 1 2>;
 
     lmouse_rotate {
         layers = <LMOUSE>;
@@ -94,7 +103,7 @@
         #input-processor-cells = <0>;
         type = <INPUT_EV_REL>;
         codes = <INPUT_REL_X INPUT_REL_Y>;
-        angle = <(-45)>;
+        angle = <135>; /* mirrored -45, plus 180: the left ball is mounted rotated 180 deg from the right one */
     };
 
     /* Left ball stage 2 (only LMouse and Raise get here): pointer by default, horizontal-only scroll on Raise. */

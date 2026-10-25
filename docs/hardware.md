@@ -53,7 +53,7 @@ Snapshot of the inherited shield settings (2026-10-10, `cb-zmk-keebs` HEAD `d9e6
 | Lower (hold `Esc`, `C` or `,`) | vertical-only scroll, unrotated | vertical-only scroll, unrotated |
 | Raise | snipe (¼ speed), rotated 45° CCW | horizontal-only scroll, rotated 45° CW |
 | Mouse (hold `Tab`) / RMouse (hold `M`) | pointer, rotated 45° CCW | vertical-only scroll, unrotated |
-| LMouse (hold `V`) | pointer, rotated 45° CCW | pointer, rotated 45° CW |
+| LMouse (hold `V`) | pointer, rotated 45° CCW | pointer, rotated 45° CW (module angle 135, see KB) |
 
 LMouse (left-handed mouse): left thumbs are M3/M2/M1 = Tab-pos / Shift-pos / Esc-pos; RMouse: right thumbs are
 LCLK/RCLK/MCLK. Everything else on both layers is `&none`. The goal is one scheme that can be copied to the
@@ -63,13 +63,14 @@ Rotation is a separate input-processor *device* (efogdev rotate-plane), so each 
 
 ```
 right: trackball_central → trackball_central_listener [shield node; processors = zip_rotate_pointer]
-          child LOWER: x_scaler 0 → xy_to_scroll_mapper → scroll_scaler 1 2 → rate limit      (final)
+          children LMOUSE/RMOUSE: rotate (explicit, listed first)
+          child LOWER: x_scaler 0 → mapper → scroll_transform Y_INVERT → scroll_scaler 1 2 → rate limit  (final)
        → zip_rotate_pointer (angle 45) → rotated_pointer_listener
           base: rate limit      child RAISE: xy_scaler 1 4 → rate limit
 
 left:  left half: trackball_peripheral → trackball_peripheral_split [processors = rate limit only, raw X/Y]
-       central:   trackball_peripheral_listener [processors = x_scaler 0 → mapper → scroll_scaler 1 2]
-          children LMOUSE, RAISE: processors = zip_rotate_left (angle -45)
+       central:   trackball_peripheral_listener [processors = x_scaler 0 → mapper → scroll_transform Y_INVERT → scroll_scaler 1 2]
+          children LMOUSE, RAISE: processors = zip_rotate_left (angle 135)
        → zip_rotate_left → left_ball_listener
           base: (none = pointer)   child RAISE: y_scaler 0 → mapper → scroll_scaler 1 2
 ```
