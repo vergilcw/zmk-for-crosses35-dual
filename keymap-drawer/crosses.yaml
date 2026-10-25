@@ -23,12 +23,12 @@ layers:
   - ''''
   - {t: Z, h: '$$mdi:apple-keyboard-option$$'}
   - {t: X, h: '$$mdi:apple-keyboard-shift$$'}
-  - {t: C, h: Lower}
-  - {t: V, h: LMouse}
+  - {t: C, h: LMouse}
+  - {t: V, h: Lower}
   - B
   - N
-  - {t: M, h: RMouse}
-  - {t: ',', h: Lower}
+  - {t: M, h: Lower}
+  - {t: ',', h: RMouse}
   - {t: ., h: '$$mdi:apple-keyboard-shift$$'}
   - {t: /, h: '$$mdi:apple-keyboard-option$$'}
   - {t: '$$mdi:keyboard-tab$$', h: Mouse}
@@ -60,12 +60,12 @@ layers:
   - F11
   - $$mdi:brightness-5$$
   - $$mdi:volume-minus$$
-  - {t: '$$mdi:volume-mute$$', type: held}
-  - $$mdi:volume-plus$$
+  - $$mdi:volume-mute$$
+  - {t: '$$mdi:volume-plus$$', type: held}
   - $$mdi:brightness-7$$
   - {t: '$$mdi:swap-horizontal$$', h: USB/BT}
-  - F1
-  - {t: F2, type: held alternate}
+  - {t: F1, type: held alternate}
+  - F2
   - F3
   - F12
   - {t: '$$mdi:transfer$$', type: trans}
@@ -171,8 +171,8 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: held}
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:mouse-left-click$$', h: left}
@@ -212,8 +212,8 @@ layers:
   - {t: '$$mdi:mouse-left-click$$', h: left}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:minus-circle-outline$$', type: held}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: '$$mdi:minus-circle-outline$$', type: held}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}

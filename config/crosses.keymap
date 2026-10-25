@@ -126,7 +126,7 @@
             bindings = <
 &kp Q       &kp W        &kp E        &kp R         &kp T  &kp Y  &kp U         &kp I            &kp O          &kp P
 &kp A       &kp S        &kp D        &kp F         &kp G  &kp H  &kp J         &kp K            &kp L          &kp SQT
-&mt LALT Z  &mt LSHFT X  &lt LOWER C  &lt LMOUSE V  &kp B  &kp N  &lt RMOUSE M  &lt LOWER COMMA  &mt LSHFT DOT  &mt RALT FSLH
+&mt LALT Z  &mt LSHFT X  &lt LMOUSE C  &lt LOWER V  &kp B  &kp N  &lt LOWER M  &lt RMOUSE COMMA  &mt LSHFT DOT  &mt RALT FSLH
                 &lt MOUSE TAB  &mt LSHFT BSPC  &lt LOWER ESC  &mt LCTRL RET  &lt RAISE SPACE  &kp LGUI
             >;
         };

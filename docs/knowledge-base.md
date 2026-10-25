@@ -78,6 +78,8 @@ Newest entries go at the top of each section.
   Mouse); Prev/Play-Pause/Next moved to Lower row 1 cols 1–3 above vol−/mute/vol+ as plain keys, replacing Lower's ← ↓ →
   (user choice; arrows remain on Mouse/LMouse/RMouse). Hardware test of the previous flash (eab86df: scroll fix,
   free-hand clusters, thumb modifiers) passed (user, 2026-10-25).
+- **Layer-tap swap (2026-10-25):** user swapped the pairs so the pointer layers sit on the outer keys:
+  `C` = LMouse, `V` = Lower, `M` = Lower, `,` = RMouse (earlier entries above describe the previous V/M/C/`,` assignment).
 - Gotcha: on LMouse/RMouse nothing else works (no Raise/Mouse thumbs), by design.
 
 ## Device & Studio RPC

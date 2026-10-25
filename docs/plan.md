@@ -26,7 +26,7 @@ and right-trackball behaviour minus the outer pinky columns and the second ball.
 - [x] Right ball: rotate 45° CCW, Lower = scroll, Raise = snipe, Base/Mouse = pointer (keymap file).
 - [x] Local docker build of both halves compiles; devicetree checked (knowledge base).
 - [x] Right half flashed 2026-10-24 with the first port build (run 40129987723); user: "looks right".
-- [x] Layer scheme revision (LMouse on `V`, RMouse on `M`, Lower = unrotated vertical scroll on both balls,
+- [x] Layer scheme revision (LMouse on `V`, RMouse on `M` — swapped 2026-10-25 to LMouse on `C`, RMouse on `,`, with Lower on `V`/`M`; Lower = unrotated vertical scroll on both balls,
       layer-taps on `C`/`,`, left ball horizontal scroll on Raise): compiled locally, committed.
 - [ ] Push (**ask first**), confirm CI, flash **both** halves (**ask first**), tune (scroll directions, angles).
 - [ ] Later: tune hold-taps (`&lt` on C/V/M/comma, `&mt`s), per user "revisit later".
