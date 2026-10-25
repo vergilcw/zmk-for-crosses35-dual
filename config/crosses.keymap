@@ -51,15 +51,15 @@
 &trackball_central_listener {
     input-processors = <&zip_rotate_pointer>;
 
-    /* First match wins: the mouse layers always get the rotated pointer, even if Lower is also active. */
-    mouse_pointer {
-        layers = <LMOUSE RMOUSE>;
-        input-processors = <&zip_rotate_pointer>;
-    };
-
+    /* First match wins. Lower beats the mouse layers so holding a mouse layer-tap and then Lower scrolls. */
     lower_vscroll {
         layers = <LOWER>;
         input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_scroll_scaler 1 2>, <&zip_ble_report_rate_limit>;
+    };
+
+    mouse_pointer {
+        layers = <LMOUSE RMOUSE>;
+        input-processors = <&zip_rotate_pointer>;
     };
 };
 
@@ -71,6 +71,12 @@
 /* Base/Lower/Mouse/RMouse: unrotated vertical-only scroll. LMouse and Raise: rotate -> stage 2. */
 &trackball_peripheral_listener {
     input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
+
+    /* Lower beats LMouse: hold C (LMouse), then V (Lower) to scroll with the left ball. */
+    lower_scroll {
+        layers = <LOWER>;
+        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
+    };
 
     lmouse_rotate {
         layers = <LMOUSE>;
@@ -164,9 +170,9 @@
         lmouse_layer {
             display-name = "LMouse";
             bindings = <
-&none  &none  &none  &none  &none  &none  &kp HOME   &kp UP    &kp END    &none
-&none  &none  &none  &none  &none  &none  &kp LEFT   &kp DOWN  &kp RIGHT  &none
-&none  &none  &none  &none  &none  &none  &mkp LCLK  &mkp RCLK &mkp MCLK  &none
+&none  &none  &none  &none      &none  &none  &kp HOME   &kp UP    &kp END    &none
+&none  &none  &none  &none      &none  &none  &kp LEFT   &kp DOWN  &kp RIGHT  &none
+&none  &none  &none  &mo LOWER  &none  &none  &mkp LCLK  &mkp RCLK &mkp MCLK  &none
                 &mkp MCLK  &mkp RCLK  &mkp LCLK  &kp LCTRL  &kp LSHFT  &none
             >;
         };
@@ -176,7 +182,7 @@
             bindings = <
 &none  &kp HOME   &kp UP    &kp END    &none  &none  &none  &none  &none  &none
 &none  &kp LEFT   &kp DOWN  &kp RIGHT  &none  &none  &none  &none  &none  &none
-&none  &mkp MCLK  &mkp RCLK &mkp LCLK  &none  &none  &none  &none  &none  &none
+&none  &mkp MCLK  &mkp RCLK &mkp LCLK  &none  &none  &mo LOWER  &none  &none  &none
                 &none  &kp LSHFT  &kp LCTRL  &mkp LCLK  &mkp RCLK  &mkp MCLK
             >;
         };

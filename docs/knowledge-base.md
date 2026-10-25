@@ -80,6 +80,12 @@ Newest entries go at the top of each section.
   free-hand clusters, thumb modifiers) passed (user, 2026-10-25).
 - **Layer-tap swap (2026-10-25):** user swapped the pairs so the pointer layers sit on the outer keys:
   `C` = LMouse, `V` = Lower, `M` = Lower, `,` = RMouse (earlier entries above describe the previous V/M/C/`,` assignment).
+- **Scroll from the mouse layers (2026-10-25):** hold `C` then `V` (LMouse + Lower) or `,` then `M` (RMouse + Lower) to
+  scroll. Needs three things: `&mo LOWER` at the V position on LMouse and the M position on RMouse (those layers are
+  `&none` elsewhere); `lower_scroll` child listed *before* `lmouse_rotate` on the left listener; and `lower_vscroll`
+  now listed before `mouse_pointer` on the right stage-1 listener (first match wins; this reverses the earlier
+  robustness ordering). ZMK resolves key bindings from the highest active layer index down, so LMouse (4)/RMouse (5)
+  bindings still win over Lower (1) and the clicks keep working while scrolling.
 - Gotcha: on LMouse/RMouse nothing else works (no Raise/Mouse thumbs), by design.
 
 ## Device & Studio RPC

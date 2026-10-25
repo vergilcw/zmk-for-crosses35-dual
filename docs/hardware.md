@@ -57,7 +57,9 @@ Snapshot of the inherited shield settings (2026-10-10, `cb-zmk-keebs` HEAD `d9e6
 
 LMouse (left-handed mouse): left thumbs are M3/M2/M1 = Tab-pos / Shift-pos / Esc-pos; the right half has the Mouse-layer
 nav cluster (Home ↑ End / ← ↓ → in the same left-to-right order, not mirrored, index finger = ←/Home) with clicks on the
-bottom row (index = LCLK, then RCLK, MCLK). RMouse: right thumbs are LCLK/RCLK/MCLK and the left half has the Mouse layer's
+bottom row (index = LCLK, then RCLK, MCLK). On LMouse the `V` position and on RMouse the `M` position are `&mo LOWER`, so hold `C` then `V` (or `,` then `M`) scrolls both
+balls while the pointer-layer keys keep working (Lower is a lower layer index, so LMouse/RMouse `&none`/clicks still win; the
+listeners list the Lower child first). RMouse: right thumbs are LCLK/RCLK/MCLK and the left half has the Mouse layer's
 cluster and clicks (index = LCLK, then RCLK, MCLK to the left) without its Bluetooth keys. Everything else is `&none`. The goal is one scheme that can be copied to the
 single-trackball unibody boards.
 
