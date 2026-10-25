@@ -60,6 +60,12 @@ Newest entries go at the top of each section.
   rotate) placed before `lower_vscroll`. Suspects if it persists: Lower also active (e.g. a layer-tap on `,`/`C`
   triggering under the resting finger), or a stale ZMK Studio keymap in flash still binding `M` to Lower
   (`Restore Stock Settings` has never been run — see plan Phase 1). A read-only Studio dump would settle the latter.
+- **Hardware test 2 (2026-10-25, after fixes + Restore Stock Settings):** LMouse pointer, RMouse pointer/buttons, right-ball
+  Lower scroll and left-ball Raise horizontal scroll all correct. The stale-Studio theory was confirmed: Studio showed `M` as
+  `Layer-Tap Lower` while the firmware has `&lt RMOUSE M` (other keys were correct); cleared by *Restore Stock Settings*.
+  Left-ball plain vertical scroll (Base/Lower/Mouse/RMouse) was still inverted → the Y-invert added in test 1 is **removed
+  from the left chain** (only the right Lower child inverts). Consistent with the left sensor reading both axes flipped
+  (the 135° rotation); the user's earlier "both balls reversed" report was measured before that fix.
 - Gotcha: on LMouse/RMouse nothing else works (no Raise/Mouse thumbs), by design.
 
 ## Device & Studio RPC

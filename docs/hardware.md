@@ -69,7 +69,7 @@ right: trackball_central → trackball_central_listener [shield node; processors
           base: rate limit      child RAISE: xy_scaler 1 4 → rate limit
 
 left:  left half: trackball_peripheral → trackball_peripheral_split [processors = rate limit only, raw X/Y]
-       central:   trackball_peripheral_listener [processors = x_scaler 0 → mapper → scroll_transform Y_INVERT → scroll_scaler 1 2]
+       central:   trackball_peripheral_listener [processors = x_scaler 0 → mapper → scroll_scaler 1 2]
           children LMOUSE, RAISE: processors = zip_rotate_left (angle 135)
        → zip_rotate_left → left_ball_listener
           base: (none = pointer)   child RAISE: y_scaler 0 → mapper → scroll_scaler 1 2

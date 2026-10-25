@@ -32,7 +32,8 @@
  *   Raise          snipe (1/4), rot 45 CCW       horizontal-only scroll, rot 45 CW
  *   Mouse/RMouse   pointer, rot 45 CCW           vertical-only scroll, 0 deg
  *
- * Vertical scroll is Y-inverted (verified on hardware 2026-10-24: the plain mapper scrolled backwards).
+ * Right-ball Lower scroll is Y-inverted; the left ball's plain scroll is not, because its sensor reads
+ * both axes flipped (hardware tests, 2026-10-24/25).
  *   LMouse         pointer, rot 45 CCW           pointer, rot 45 CW (module angle 135, see below)
  *
  * The rotate-plane processors are separate devices, so each ball is a two-stage chain: a stage-1
@@ -69,7 +70,7 @@
 
 /* Base/Lower/Mouse/RMouse: unrotated vertical-only scroll. LMouse and Raise: rotate -> stage 2. */
 &trackball_peripheral_listener {
-    input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_scroll_scaler 1 2>;
+    input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
 
     lmouse_rotate {
         layers = <LMOUSE>;
