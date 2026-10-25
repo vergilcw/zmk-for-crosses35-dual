@@ -70,6 +70,8 @@ Newest entries go at the top of each section.
   cols 1–3) with `BT_SEL` and `LALT` replaced by `&none` so Bluetooth profiles can't change by accident; LMouse = same
   cluster on the right half (cols 6–8: index finger = ←/Home/LCLK, clicks LCLK/RCLK/MCLK) — arrows not mirrored, clicks
   mirrored (M1 under the index finger). PgUp/PgDn (col 5, right half) and Studio unlock are not on either layer.
+  Modifiers (plain `&kp`, not mod-taps): LMouse right thumbs = LCTRL (leftmost, pos 33), LSHFT (middle, pos 34);
+  RMouse left thumbs = LSHFT (pos 31, same place as on Base/Mouse), LCTRL (pos 32), for ctrl/shift-click.
 - Gotcha: on LMouse/RMouse nothing else works (no Raise/Mouse thumbs), by design.
 
 ## Device & Studio RPC
