@@ -110,7 +110,7 @@ Newest entries go at the top of each section.
 - **2026-10-10** — HID usage encoding in Studio params: `(implicit_mods << 24) | (page << 16) | id`;
   e.g. `0x0207001E` = `LS(N1)`.
 - **Combos are not visible over Studio RPC.** The Q+W→Esc combo was removed from the keymap on 2026-10-24; the
-  device keeps the old one until flashed.
+  device keeps the old one until flashed. The J+K→Esc combo (2026-10-27) likewise only exists in the keymap file.
 
 ## Keymap oddities (carried over verbatim from Studio, 2026-10-10)
 
@@ -170,7 +170,8 @@ Kept as-is so the codified keymap matches the device; review in Phase 2.
 - `scripts/local_build.sh` passed `-Dsnippet=studio-rpc-usb-uart`; Zephyr only reads `SNIPPET`, so the
   snippet was silently dropped (`CACHED_SNIPPET` empty in `CMakeCache.txt`). The flashed right half had
   `ZMK_STUDIO=y` but only the BLE transport: no `/dev/ttyACM*`, zmk.studio couldn't connect over USB.
-  Fixed to `-DSNIPPET=`. Before flashing a local right-half build, check
+  Fixed to `-DSNIPPET=`, and the script now always builds pristine (`west build -p always`): Zephyr
+  ignores a snippet change in an existing build dir ("must be cleaned pristinely when changing snippet"). Before flashing a local right-half build, check
   `.west-workspace/build/right/zephyr/.config` has `CONFIG_ZMK_STUDIO_TRANSPORT_UART=y`; CI builds
   (`build.yaml`) were never affected.
 

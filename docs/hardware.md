@@ -50,12 +50,12 @@ Snapshot of the inherited shield settings (2026-10-10, `cb-zmk-keebs` HEAD `d9e6
 | Layer | Right ball (central) | Left ball (via split) |
 | --- | --- | --- |
 | Base | pointer, rotated 45° CCW | vertical-only scroll, unrotated |
-| Lower (hold `Esc`, `V` or `M`) | vertical-only scroll, unrotated | vertical-only scroll, unrotated |
+| Lower (hold `Del`, `V` or `M`) | vertical-only scroll, unrotated | vertical-only scroll, unrotated |
 | Raise | snipe (¼ speed), rotated 45° CCW | horizontal-only scroll, rotated 45° CW |
 | Mouse (hold `Tab`) / RMouse (hold `,`) | pointer, rotated 45° CCW | vertical-only scroll, unrotated |
 | LMouse (hold `C`) | pointer, rotated 45° CCW | pointer, rotated 45° CW (module angle 135, see KB) |
 
-LMouse (left-handed mouse): left thumbs are M3/M2/M1 = Tab-pos / Shift-pos / Esc-pos; the right half has the Mouse-layer
+LMouse (left-handed mouse): left thumbs are M3/M2/M1 = Tab-pos / Shift-pos / Del-pos; the right half has the Mouse-layer
 nav cluster (Home ↑ End / ← ↓ → in the same left-to-right order, not mirrored, index finger = ←/Home) with clicks on the
 bottom row (index = LCLK, then RCLK, MCLK). On LMouse the `V` position and on RMouse the `M` position are `&mo LOWER`, so hold `C` then `V` (or `,` then `M`) scrolls both
 balls while the pointer-layer keys keep working (Lower is a lower layer index, so LMouse/RMouse `&none`/clicks still win; the

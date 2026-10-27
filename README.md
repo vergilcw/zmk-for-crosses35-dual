@@ -24,12 +24,12 @@ Personal [ZMK](https://zmk.dev) firmware for a **wireless Crosses 35 split keybo
 
 | Layer | Reach | What's there |
 | --- | --- | --- |
-| **Base** | — | QWERTY, `'` on the right pinky, mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Esc/Lower — Ret/Ctrl · Space/Raise · Gui |
-| **Lower** | hold left-inner thumb, `V` or `M` | Home/Up/End, media prev/play/next (above vol−/mute/vol+), volume + brightness, F-keys, USB/BT toggle. **Both trackballs scroll vertically (unrotated).** |
+| **Base** | — | QWERTY, `;` on the right pinky, mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Del/Lower — Ret/Ctrl · Space/Raise · Gui. **J+K together = Esc** ("just kidding") |
+| **Lower** | hold left-inner thumb, `V` or `M` | Bluetooth profiles 4/3 (E/R) and BT clear (Y), media prev/play/next (above vol−/mute/vol+), volume + brightness, F-keys in numpad order (F7–F9 / F4–F6 / F1–F3, F10–F12 on the pinky), USB/BT toggle. **Both trackballs scroll vertically (unrotated).** |
 | **Raise** | hold right-middle thumb | Symbols on the left, numpad on the right, mouse clicks under the left ring/middle/index fingers (as on Mouse). **Right trackball snipes; left ball scrolls horizontally.** |
-| **LMouse** | hold `C` | Left-handed mouse: left trackball = pointer, left thumbs = M3/M2/M1, right half = Home/↑/End, ←/↓/→ and L/R/M click (under J K L), Ctrl and Shift on the right thumbs; hold `V` as well to scroll (other keys off) |
-| **RMouse** | hold `,` | Right trackball = pointer, right thumbs = left/right/middle click, left half = Home/↑/End, ←/↓/→ and clicks as on the Mouse layer (no Bluetooth keys), Shift and Ctrl on the left thumbs; hold `M` as well to scroll (other keys off) |
-| **Mouse** | hold left-outer thumb | Bluetooth profiles 0–4, mouse buttons, brackets/parens, Studio unlock |
+| **LMouse** | hold `C` | Left-handed mouse: left trackball = pointer, left thumbs = M3/M2/M1, right half = Home/↑/End, ←/↓/→, PgUp/PgDn (pinky) and L/R/M click (under J K L), Ctrl and Shift on the right thumbs; hold `V` as well to scroll (other keys off) |
+| **RMouse** | hold `,` | Right trackball = pointer, right thumbs = left/right/middle click, left half = PgUp/PgDn (pinky), Home/↑/End, ←/↓/→ and clicks as on the Mouse layer (no Bluetooth keys), Shift and Ctrl on the left thumbs; hold `M` as well to scroll (other keys off) |
+| **Mouse** | hold left-outer thumb | Bluetooth profiles 0–2, PgUp/PgDn on both pinkies, Home/↑/End and arrows, mouse buttons, brackets/parens, `'`/`"` on the right pinky, Studio unlock |
 
 The keymap mirrors my [Crosses 36](https://github.com/vergilcw/zmk-for-crosses36) (single-trackball) board's inner
 block, minus its outer pinky columns. Trackball rotation/layer behaviour is in the keymap file

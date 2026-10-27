@@ -15,7 +15,7 @@ docker run --rm -v "$repo/.west-workspace:/ws" -e HALVES="$halves" zmkfirmware/z
   for half in $HALVES; do
     extra=""
     [ "$half" = right ] && extra="-DSNIPPET=studio-rpc-usb-uart -DCONFIG_ZMK_STUDIO=y"
-    west build -s zmk/app -d build/$half -b nice_nano -- -DSHIELD=crosses_$half -DZMK_CONFIG=/ws/config $extra > build_$half.log 2>&1 \
+    west build -p always -s zmk/app -d build/$half -b nice_nano -- -DSHIELD=crosses_$half -DZMK_CONFIG=/ws/config $extra > build_$half.log 2>&1 \
       || { tail -40 build_$half.log; exit 1; }
     echo "$half OK -> build/$half/zephyr/zmk.uf2"
   done'

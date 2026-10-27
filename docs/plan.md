@@ -22,6 +22,9 @@ New work discovered mid-task lands here; triage into a phase before ending a ses
 - [ ] Pin the remaining floating west revisions (`cb-zmk-keebs@zephyr-4.1`, `efogdev/zmk-pmw3610-driver`,
       `zmk-report-rate-limit`, `zmk-input-processor-xyz`); a driver update could silently change pointer feel.
 - [x] Q+W → Esc combo dropped (2026-10-24, matches the Crosses 36 repo; Esc is on the Esc/Lower thumb).
+- [x] 2026-10-27: J+K → Esc combo ("just kidding"; Esc thumb was too easy to bump), Lower thumb tap is now Del.
+- [x] 2026-10-27: codified the user's Studio edits (`;` on Base pinky, `'`/`"` on Mouse, BT keys moved to Lower,
+      numpad-order F-keys, PgUp/PgDn on the mouse layers, right `/` hold = LAlt). Snapshot: `docs/studio-snapshots/2026-10-27.json`.
 - [ ] Review odd bindings carried over from Studio (see knowledge base, "Keymap oddities").
 
 ## Port from Crosses 36 (2026-10-24)
@@ -29,7 +32,7 @@ New work discovered mid-task lands here; triage into a phase before ending a ses
 Reference: `/home/vergilcw/zmk-for-crosses` branch `36` (`docs/plan.md`, `docs/knowledge-base.md`). Goal: same keymap
 and right-trackball behaviour minus the outer pinky columns and the second ball.
 
-- [-] `;`/`'` swap skipped (user, 2026-10-24): `'` stays on the Base right pinky; `;` stays on Mouse. The 36 repo may be changed to match later.
+- [x] `;`/`'` swap: skipped 2026-10-24, then made by the user in Studio and codified 2026-10-27 (`;` on Base pinky, `'` on Mouse). The 36 repo may be changed to match later.
 - [x] Q+W combo and unused `&as` behavior removed.
 - [x] Right ball: rotate 45° CCW, Lower = scroll, Raise = snipe, Base/Mouse = pointer (keymap file).
 - [x] Local docker build of both halves compiles; devicetree checked (knowledge base).
@@ -69,7 +72,7 @@ and right-trackball behaviour minus the outer pinky columns and the second ball.
       `hold-trigger-key-positions` = opposite hand (+ thumbs), `hold-trigger-on-release`.
 - [ ] Consider the same for `&lt LOWER M` (letter on a layer-tap is the same failure mode).
 - [ ] Note: Studio can't edit hold-tap parameters; custom behaviors must live in the keymap file.
-- [ ] Remove the easy-to-hit `&bt BT_CLR` on Raise (G position) — risk of accidental profile wipes.
+- [x] Remove the easy-to-hit `&bt BT_CLR` on Raise (G position) — done in Studio, codified 2026-10-27 (BT clear now on Lower Y).
 - [ ] Bind `&kp F20` for mic mute. Linux xkb maps F20 → `XF86AudioMicMute` by default (*unverified on
       the dev machine*); otherwise add a GNOME custom shortcut via the system config. macOS: map in system settings / Karabiner.
 
