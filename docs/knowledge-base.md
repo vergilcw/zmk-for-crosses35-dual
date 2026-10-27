@@ -150,6 +150,21 @@ Kept as-is so the codified keymap matches the device; review in Phase 2.
   keymap-drawer workflow, and a different BLE tuning in `config/crosses.conf` (bigger BT buffers,
   `ZMK_BLE_EXPERIMENTAL_CONN`, `BT_PERIPHERAL_PREF_MAX_INT=9`, latency 2) — useful comparison for Phase 4.
 
+## Scroll too fast on Linux: smooth scrolling / Resolution Multiplier (2026-10-26)
+
+- Symptom: trackball scroll fine on Windows, ~16x too fast on GNOME (osprey, BLE).
+- Cause (verified): the shield's `crosses.conf`/`crosses_{left,right}.conf` set
+  `ZMK_POINTING_SMOOTH_SCROLLING=y`, so the HID descriptor advertises a Resolution Multiplier
+  (logical 0..15, physical 1..16) for wheel and AC Pan. ZMK does not scale its scroll output by it; the
+  host does. Windows sets 16 (1 unit = 1/16 notch). On Linux, BlueZ logged
+  `hog-lib.c:set_report_cb() Error setting Report value: Encryption required before read/write`, the
+  kernel fell back to multiplier 1, and `evtest` showed `REL_WHEEL_HI_RES` 120 per unit (= full notch).
+  GNOME/libinput have no scroll-speed knob that could compensate.
+- Fix: `CONFIG_ZMK_POINTING_SMOOTH_SCROLLING=n` in our `config/crosses.conf` (applied after the shield
+  confs) and every `zip_scroll_scaler 1 2` → `1 32` (old 1/2 × Windows' 1/16 = same Windows speed).
+  The scaler has `track-remainders`, so slow rolls still accumulate. Trade-off: scrolling is now
+  per-notch (not pixel-smooth) on Windows too. Flashed (right half) 2026-10-26; speed confirmed good on GNOME.
+
 ## Decision log
 
 - **2026-10-10** — Keymap exported from Studio and codified verbatim (no "fixes") so the first flash is a

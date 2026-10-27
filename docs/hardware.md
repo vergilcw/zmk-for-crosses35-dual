@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | Split role | **Central** (talks to host, USB + BLE) | Peripheral (talks only to right half) |
 | ZMK Studio | Yes (`studio-rpc-usb-uart` snippet, `CONFIG_ZMK_STUDIO=y`) | No |
-| Trackball | PMW3610, CPI 800, `force-high-performance` → rotated 45° CCW; **pointer** (Base/Mouse), see "Trackball behaviour by layer" | PMW3610, CPI 600 → **scroll**, vertical only (horizontal-only while Lower/Raise held), rotated 45° CW; (`zip_xy_to_scroll_mapper` + `zip_scroll_scaler 1 2`) |
+| Trackball | PMW3610, CPI 800, `force-high-performance` → rotated 45° CCW; **pointer** (Base/Mouse), see "Trackball behaviour by layer" | PMW3610, CPI 600 → **scroll**, vertical only (horizontal-only while Lower/Raise held), rotated 45° CW; (`zip_xy_to_scroll_mapper` + `zip_scroll_scaler 1 32`) |
 | USB name | `Crosses BT` (`/dev/serial/by-id/usb-ZMK_Project_Crosses_BT_*`) | — |
 | Artifact | `crosses_35_right` | `crosses_35_left` |
 
@@ -35,7 +35,7 @@ ZMK user config builds layer config from several places (later wins):
 
 Snapshot of the inherited shield settings (2026-10-10, `cb-zmk-keebs` HEAD `d9e64a4`):
 
-- `crosses.conf`: `ZMK_SLEEP=y` (15 min idle), battery reporting, pointing + smooth scrolling, USB,
+- `crosses.conf`: `ZMK_SLEEP=y` (15 min idle), battery reporting, pointing + smooth scrolling (overridden off in our `config/crosses.conf`, see KB), USB,
   `ZMK_STUDIO_LOCKING=n` (but the device *does* report LOCKED until `&studio_unlock` — see KB),
   `ZMK_BLE_MOUSE_REPORT_QUEUE_SIZE=1`, `ZMK_BLE_EXPERIMENTAL_FEATURES=y`, `BT_CTLR_TX_PWR_PLUS_8`,
   `BT_CTLR_TX_PWR_DYNAMIC_CONTROL`, `BT_CTLR_PHY_2M`, `BT_PERIPHERAL_PREF_MAX_INT=6`, `BT_TPS`,
@@ -68,15 +68,15 @@ Rotation is a separate input-processor *device* (efogdev rotate-plane), so each 
 ```
 right: trackball_central → trackball_central_listener [shield node; processors = zip_rotate_pointer]
           children LMOUSE/RMOUSE: rotate (explicit, listed first)
-          child LOWER: x_scaler 0 → mapper → scroll_transform Y_INVERT → scroll_scaler 1 2 → rate limit  (final)
+          child LOWER: x_scaler 0 → mapper → scroll_transform Y_INVERT → scroll_scaler 1 32 → rate limit  (final)
        → zip_rotate_pointer (angle 45) → rotated_pointer_listener
           base: rate limit      child RAISE: xy_scaler 1 4 → rate limit
 
 left:  left half: trackball_peripheral → trackball_peripheral_split [processors = rate limit only, raw X/Y]
-       central:   trackball_peripheral_listener [processors = x_scaler 0 → mapper → scroll_scaler 1 2]
+       central:   trackball_peripheral_listener [processors = x_scaler 0 → mapper → scroll_scaler 1 32]
           children LMOUSE, RAISE: processors = zip_rotate_left (angle 135)
        → zip_rotate_left → left_ball_listener
-          base: (none = pointer)   child RAISE: y_scaler 0 → mapper → scroll_scaler 1 2
+          base: (none = pointer)   child RAISE: y_scaler 0 → mapper → scroll_scaler 1 32
 ```
 
 A matching `layers` child *replaces* the listener's base chain, which is how Lower skips rotation. Layer state

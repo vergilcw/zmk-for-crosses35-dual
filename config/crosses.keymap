@@ -54,7 +54,7 @@
     /* First match wins. Lower beats the mouse layers so holding a mouse layer-tap and then Lower scrolls. */
     lower_vscroll {
         layers = <LOWER>;
-        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_scroll_scaler 1 2>, <&zip_ble_report_rate_limit>;
+        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_scroll_scaler 1 32>, <&zip_ble_report_rate_limit>;
     };
 
     mouse_pointer {
@@ -70,12 +70,12 @@
 
 /* Base/Lower/Mouse/RMouse: unrotated vertical-only scroll. LMouse and Raise: rotate -> stage 2. */
 &trackball_peripheral_listener {
-    input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
+    input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 32>;
 
     /* Lower beats LMouse: hold C (LMouse), then V (Lower) to scroll with the left ball. */
     lower_scroll {
         layers = <LOWER>;
-        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
+        input-processors = <&zip_x_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 32>;
     };
 
     lmouse_rotate {
@@ -120,7 +120,7 @@
 
         raise_hscroll {
             layers = <RAISE>;
-            input-processors = <&zip_y_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>;
+            input-processors = <&zip_y_scaler 0 1>, <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 32>;
         };
     };
 

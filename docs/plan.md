@@ -17,6 +17,8 @@ New work discovered mid-task lands here; triage into a phase before ending a ses
 - [ ] Flash the 2026-10-24 port build (rotation/scroll/snipe/`;`) and tune: rotation sign, Lower scroll
       speed/direction (`zip_scroll_scaler 1 2` is copied from the left ball, unverified for the right) — see
       knowledge base "Right trackball port".
+- [x] Scroll fix (smooth scrolling off, `zip_scroll_scaler 1 32`): right half flashed 2026-10-26, scroll speed
+      confirmed good on GNOME — see knowledge base "Scroll too fast on Linux".
 - [ ] Pin the remaining floating west revisions (`cb-zmk-keebs@zephyr-4.1`, `efogdev/zmk-pmw3610-driver`,
       `zmk-report-rate-limit`, `zmk-input-processor-xyz`); a driver update could silently change pointer feel.
 - [x] Q+W → Esc combo dropped (2026-10-24, matches the Crosses 36 repo; Esc is on the Esc/Lower thumb).
