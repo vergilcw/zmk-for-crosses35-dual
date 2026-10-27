@@ -165,6 +165,15 @@ Kept as-is so the codified keymap matches the device; review in Phase 2.
   The scaler has `track-remainders`, so slow rolls still accumulate. Trade-off: scrolling is now
   per-notch (not pixel-smooth) on Windows too. Flashed (right half) 2026-10-26; speed confirmed good on GNOME.
 
+## Local build: Studio USB transport needs `-DSNIPPET` (2026-10-27)
+
+- `scripts/local_build.sh` passed `-Dsnippet=studio-rpc-usb-uart`; Zephyr only reads `SNIPPET`, so the
+  snippet was silently dropped (`CACHED_SNIPPET` empty in `CMakeCache.txt`). The flashed right half had
+  `ZMK_STUDIO=y` but only the BLE transport: no `/dev/ttyACM*`, zmk.studio couldn't connect over USB.
+  Fixed to `-DSNIPPET=`. Before flashing a local right-half build, check
+  `.west-workspace/build/right/zephyr/.config` has `CONFIG_ZMK_STUDIO_TRANSPORT_UART=y`; CI builds
+  (`build.yaml`) were never affected.
+
 ## Decision log
 
 - **2026-10-10** — Keymap exported from Studio and codified verbatim (no "fixes") so the first flash is a
