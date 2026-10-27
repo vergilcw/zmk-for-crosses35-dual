@@ -39,7 +39,7 @@ layers:
   - $$mdi:apple-keyboard-command$$
   Lower:
   - '!'
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - PrtSc
   - {h: '5', s: '$$mdi:bluetooth-connect$$'}
   - {h: '4', s: '$$mdi:bluetooth-connect$$'}
   - '%'
@@ -84,7 +84,7 @@ layers:
   - '7'
   - '8'
   - '9'
-  - PrtSc
+  - ':'
   - '`'
   - '~'
   - '|'
