@@ -225,3 +225,5 @@ layers:
 combos:
 - p: [16, 17]
   k: $$mdi:keyboard-esc$$
+- p: [12, 13]
+  k: $$mdi:keyboard-esc$$
