@@ -110,7 +110,7 @@ Newest entries go at the top of each section.
 - **2026-10-10** — HID usage encoding in Studio params: `(implicit_mods << 24) | (page << 16) | id`;
   e.g. `0x0207001E` = `LS(N1)`.
 - **Combos are not visible over Studio RPC.** The Q+W→Esc combo was removed from the keymap on 2026-10-24; the
-  device keeps the old one until flashed. The J+K→Esc combo (2026-10-27) likewise only exists in the keymap file.
+  device keeps the old one until flashed. The J+K→Esc (2026-10-27) and D+F→Esc (2026-10-28) combos likewise only exists in the keymap file.
 
 ## Keymap oddities (carried over verbatim from Studio, 2026-10-10)
 

@@ -124,13 +124,20 @@
         };
     };
 
-    /* J+K -> Esc ("just kidding"). Idle guard keeps fast rolls through j/k from firing it. */
+    /* J+K and D+F -> Esc ("just kidding"). Idle guard keeps fast rolls through the pairs from firing it. */
     combos {
         compatible = "zmk,combos";
 
         esc {
             bindings = <&kp ESCAPE>;
             key-positions = <16 17>;
+            timeout-ms = <50>;
+            require-prior-idle-ms = <150>;
+        };
+
+        esc_left {
+            bindings = <&kp ESCAPE>;
+            key-positions = <12 13>;
             timeout-ms = <50>;
             require-prior-idle-ms = <150>;
         };

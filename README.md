@@ -24,7 +24,7 @@ Personal [ZMK](https://zmk.dev) firmware for a **wireless Crosses 35 split keybo
 
 | Layer | Reach | What's there |
 | --- | --- | --- |
-| **Base** | — | QWERTY, `;` on the right pinky, mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Del/Lower — Ret/Ctrl · Space/Raise · Gui. **J+K together = Esc** ("just kidding") |
+| **Base** | — | QWERTY, `;` on the right pinky, mod-taps on the bottom row (Alt/Shift on Z X . /), thumbs: Tab/Mouse · Bspc/Shift · Del/Lower — Ret/Ctrl · Space/Raise · Gui. **J+K or D+F together = Esc** ("just kidding") |
 | **Lower** | hold left-inner thumb, `V` or `M` | Print Screen (W), Bluetooth profiles 4/3 (E/R) and BT clear (Y), media prev/play/next (above vol−/mute/vol+), volume + brightness, F-keys in numpad order (F7–F9 / F4–F6 / F1–F3, F10–F12 on the pinky), USB/BT toggle. **Both trackballs scroll vertically (unrotated).** |
 | **Raise** | hold right-middle thumb | Symbols on the left, numpad on the right with `:` above the `-` (type times without leaving Raise), mouse clicks under the left ring/middle/index fingers (as on Mouse). **Right trackball snipes; left ball scrolls horizontally.** |
 | **LMouse** | hold `C` | Left-handed mouse: left trackball = pointer, left thumbs = M3/M2/M1, right half = Home/↑/End, ←/↓/→, PgUp/PgDn (pinky) and L/R/M click (under J K L), Ctrl and Shift on the right thumbs; hold `V` as well to scroll (other keys off) |
